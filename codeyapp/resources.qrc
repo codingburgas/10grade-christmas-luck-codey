@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>assets/images/topLampBackground.png</file>
         <file>assets/images/backgroundLines.png</file>
+        <file>assets/images/backgroundText.png</file>
     </qresource>
 </RCC>
