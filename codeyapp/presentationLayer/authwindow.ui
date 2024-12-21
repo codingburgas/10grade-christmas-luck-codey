@@ -166,12 +166,12 @@ font: 12pt &quot;Segoe UI&quot;;</string>
    </property>
    <item>
     <property name="text">
-     <string>Writer</string>
+     <string>Reader</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Reader</string>
+     <string>Writer</string>
     </property>
    </item>
   </widget>
@@ -191,6 +191,35 @@ font: 12pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="text">
     <string>Choose a role</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>980</x>
+     <y>522</y>
+     <width>121</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 16pt &quot;Segoe UI&quot;;
+border-color: rgb(0, 0, 0);
+       color: rgb(0, 0, 0);
+       background-color: rgb(250, 255, 74);
+       border: 1px;
+       border-color: rgb(0, 0, 0);
+       border-radius: 14px;
+   </string>
+   </property>
+   <property name="text">
+    <string>Join</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>
