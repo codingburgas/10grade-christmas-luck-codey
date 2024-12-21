@@ -12,12 +12,15 @@ INCLUDEPATH += $$PWD/presentationLayer
 
 SOURCES += \
     main.cpp \
+    presentationLayer/authwindow.cpp \
     presentationLayer/mainwindow.cpp
 
 HEADERS += \
+    presentationLayer/authwindow.h \
     presentationLayer/mainwindow.h
 
 FORMS += \
+    presentationLayer/authwindow.ui \
     presentationLayer/mainwindow.ui
 
 RESOURCES += resource.qrc \   # Added resource.qrc here

@@ -3,5 +3,6 @@
         <file>assets/images/topLampBackground.png</file>
         <file>assets/images/backgroundLines.png</file>
         <file>assets/images/backgroundText.png</file>
+        <file>assets/images/sideLampBackground.png</file>
     </qresource>
 </RCC>
