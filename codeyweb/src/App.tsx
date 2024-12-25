@@ -67,14 +67,13 @@ export default function App() {
         </h1>
 
         <img
-          className="my-6 w-[18rem] select-none"
+          className="my-4 mt-10 w-[18rem] select-none"
           src="./src/assets/feedbackStars.png"
         />
 
         <img
           className="mb-[-1rem] mt-[-2.5rem] w-[35rem] select-none"
           src="./src/assets/laptop.png"
-          alt="Laptop"
         />
 
         <p className="text-center font-light text-[1.2rem] px-4 max-w-[45vw]">
