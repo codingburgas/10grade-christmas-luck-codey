@@ -4,5 +4,9 @@
         <file>assets/images/backgroundLines.png</file>
         <file>assets/images/backgroundText.png</file>
         <file>assets/images/sideLampBackground.png</file>
+        <file>assets/images/booksIcon.png</file>
+        <file>assets/images/libraryIcon.png</file>
+        <file>assets/images/logo.png</file>
+        <file>assets/images/writeIcon.png</file>
     </qresource>
 </RCC>

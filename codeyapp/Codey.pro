@@ -12,14 +12,17 @@ INCLUDEPATH += $$PWD/presentationLayer
 
 SOURCES += \
     main.cpp \
+    presentationLayer/dashboard.cpp \
     presentationLayer/authwindow.cpp \
     presentationLayer/mainwindow.cpp
 
 HEADERS += \
+    presentationLayer/dashboard.h \
     presentationLayer/authwindow.h \
     presentationLayer/mainwindow.h
 
 FORMS += \
+    presentationLayer/dashboard.ui \
     presentationLayer/authwindow.ui \
     presentationLayer/mainwindow.ui
 
