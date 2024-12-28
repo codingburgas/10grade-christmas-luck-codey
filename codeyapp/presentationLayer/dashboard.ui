@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Dashboard</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(245, 245, 245);</string>
@@ -67,7 +67,7 @@ font: 16pt &quot;Segoe UI&quot;;</string>
      <string>Codey</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>51</x>
@@ -100,7 +100,7 @@ font: 600 11pt &quot;Segoe UI&quot;;</string>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -253,6 +253,64 @@ font: 300 11pt &quot;Segoe UI&quot;;</string>
      <string>Writer</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="searchBar">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>20</y>
+      <width>431</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+     background-color: #F5F5F5;
+     border-radius: 12px;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="searchButton">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>20</y>
+      <width>91</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #F5F5F5;
+border-radius: 12px;
+color: black;</string>
+    </property>
+    <property name="text">
+     <string>Search</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>1110</x>
+     <y>128</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 4px;
+font: 10pt &quot;Segoe UI&quot;;
+background: #DEE33E;
+color: black;</string>
+   </property>
+   <property name="text">
+    <string>Write a book</string>
+   </property>
   </widget>
  </widget>
  <resources>
