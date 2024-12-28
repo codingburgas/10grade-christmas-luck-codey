@@ -166,6 +166,26 @@ font: 600 11pt &quot;Segoe UI&quot;;</string>
      <string>Write a book</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>350</y>
+      <width>151</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: transparent;
+background-color: transparent;</string>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QFrame" name="frame_2">
    <property name="geometry">

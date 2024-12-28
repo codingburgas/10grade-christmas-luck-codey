@@ -15,6 +15,11 @@ public:
     explicit Dashboard(QWidget *parent = nullptr);
     ~Dashboard();
 
+private slots:
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::Dashboard *ui;
 };

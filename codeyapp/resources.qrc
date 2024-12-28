@@ -8,5 +8,6 @@
         <file>assets/images/libraryIcon.png</file>
         <file>assets/images/logo.png</file>
         <file>assets/images/writeIcon.png</file>
+        <file>assets/images/writeImage.png</file>
     </qresource>
 </RCC>

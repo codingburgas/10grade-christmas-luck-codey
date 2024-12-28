@@ -1,11 +1,11 @@
-#include "dashboard.h"
+#include "writeBook.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Dashboard w;
+    writeBook w;
     w.show();
     return a.exec();
 }

@@ -1,5 +1,6 @@
 #include "dashboard.h"
 #include "ui_dashboard.h"
+#include "writebook.h"
 
 Dashboard::Dashboard(QWidget *parent)
     : QDialog(parent)
@@ -21,3 +22,29 @@ Dashboard::~Dashboard()
 {
     delete ui;
 }
+
+void Dashboard::on_pushButton_2_clicked()
+{
+    this->hide();
+
+    //Create and show writeBook as a modal dialog
+    writeBook writeBook;
+    writeBook.setModal(true);
+    writeBook.exec();
+
+    this->close();
+}
+
+
+void Dashboard::on_pushButton_clicked()
+{
+    this->hide();
+
+    //Create and show writeBook as a modal dialog
+    writeBook writeBook;
+    writeBook.setModal(true);
+    writeBook.exec();
+
+    this->close();
+}
+
