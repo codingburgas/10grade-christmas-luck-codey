@@ -70,39 +70,6 @@ font: 16pt &quot;Segoe UI&quot;;</string>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>51</x>
-      <y>250</y>
-      <width>84</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_libraryIcon">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../resources.qrc">:/assets/images/libraryIcon.png</pixmap>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_3">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(0, 0, 0);
-font: 600 11pt &quot;Segoe UI&quot;;</string>
-       </property>
-       <property name="text">
-        <string>Library</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
       <x>50</x>
       <y>300</y>
       <width>106</width>
@@ -186,6 +153,68 @@ background-color: transparent;</string>
      <string>PushButton</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>250</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: transparent;
+background-color: transparent;</string>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>251</y>
+      <width>58</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 0, 0);
+font: 600 11pt &quot;Segoe UI&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Library</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_libraryIcon">
+    <property name="geometry">
+     <rect>
+      <x>52</x>
+      <y>251</y>
+      <width>17</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../resources.qrc">:/assets/images/libraryIcon.png</pixmap>
+    </property>
+   </widget>
+   <zorder>label_3</zorder>
+   <zorder>label_logo</zorder>
+   <zorder>label</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>label_write</zorder>
+   <zorder>label_5</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>pushButton_3</zorder>
   </widget>
   <widget class="QFrame" name="frame_2">
    <property name="geometry">
@@ -313,7 +342,7 @@ color: black;</string>
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>1110</x>
+     <x>1140</x>
      <y>128</y>
      <width>111</width>
      <height>41</height>
@@ -331,6 +360,91 @@ color: black;</string>
    <property name="text">
     <string>Write a book</string>
    </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>335</x>
+     <y>190</y>
+     <width>921</width>
+     <height>581</height>
+    </rect>
+   </property>
+   <property name="accessibleDescription">
+    <string/>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #FFFFFF;</string>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+   </property>
+   <attribute name="horizontalHeaderCascadingSectionResizes">
+    <bool>false</bool>
+   </attribute>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>306</number>
+   </attribute>
+   <row>
+    <property name="text">
+     <string>Book</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>Book</string>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>Title</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Author</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Genre</string>
+    </property>
+    <property name="font">
+     <font>
+      <bold>false</bold>
+     </font>
+    </property>
+   </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string>Test</string>
+    </property>
+   </item>
+   <item row="0" column="1">
+    <property name="text">
+     <string>Test</string>
+    </property>
+   </item>
+   <item row="0" column="2">
+    <property name="text">
+     <string>Test</string>
+    </property>
+   </item>
+   <item row="1" column="0">
+    <property name="text">
+     <string>Ttest</string>
+    </property>
+   </item>
+   <item row="1" column="1">
+    <property name="text">
+     <string>Ttest</string>
+    </property>
+   </item>
+   <item row="1" column="2">
+    <property name="text">
+     <string>Ttest</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources>

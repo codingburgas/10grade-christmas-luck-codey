@@ -48,3 +48,16 @@ void Dashboard::on_pushButton_clicked()
     this->close();
 }
 
+
+void Dashboard::on_pushButton_3_clicked()
+{
+    this->hide();
+
+    //Create and show Dashboard as a modal dialog
+    Dashboard Dashboard;
+    Dashboard.setModal(true);
+    Dashboard.exec();
+
+    this->close();
+}
+
