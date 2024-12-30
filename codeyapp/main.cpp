@@ -1,4 +1,4 @@
-#include "dashboard.h"
+#include "dashboard.h".h"
 
 #include <QApplication>
 
