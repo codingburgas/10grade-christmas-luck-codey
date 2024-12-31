@@ -383,7 +383,7 @@ color: black;</string>
     <bool>false</bool>
    </attribute>
    <attribute name="horizontalHeaderDefaultSectionSize">
-    <number>306</number>
+    <number>220</number>
    </attribute>
    <row>
     <property name="text">
@@ -413,6 +413,11 @@ color: black;</string>
      <font>
       <bold>false</bold>
      </font>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Status</string>
     </property>
    </column>
    <item row="0" column="0">
