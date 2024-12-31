@@ -2,6 +2,7 @@
 #include "ui_dashboard.h"
 #include "writebook.h"
 #include "mybooks.h"
+#include <QVBoxLayout>
 
 Dashboard::Dashboard(QWidget *parent)
     : QDialog(parent)
@@ -74,4 +75,3 @@ void Dashboard::on_pushButton_4_clicked()
 
     this->close();
 }
-

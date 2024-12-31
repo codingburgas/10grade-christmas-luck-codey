@@ -17,7 +17,8 @@ SOURCES += \
     presentationLayer/authwindow.cpp \
     presentationLayer/mainwindow.cpp \
     presentationLayer/writebook.cpp \
-    presentationLayer/readbook.cpp
+    presentationLayer/readbook.cpp \
+    presentationLayer/rent.cpp
 
 HEADERS += \
     presentationLayer/mybooks.h \
@@ -25,7 +26,8 @@ HEADERS += \
     presentationLayer/authwindow.h \
     presentationLayer/mainwindow.h \
     presentationLayer/writebook.h \
-    presentationLayer/readbook.h
+    presentationLayer/readbook.h \
+    presentationLayer/rent.h
 
 FORMS += \
     presentationLayer/mybooks.ui \
@@ -33,7 +35,8 @@ FORMS += \
     presentationLayer/authwindow.ui \
     presentationLayer/mainwindow.ui \
     presentationLayer/writebook.ui \
-    presentationLayer/readbook.ui
+    presentationLayer/readbook.ui \
+    presentationLayer/rent.ui
 
 RESOURCES += resource.qrc \   # Added resource.qrc here
     resources.qrc
