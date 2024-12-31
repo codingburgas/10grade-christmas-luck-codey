@@ -12,6 +12,7 @@ INCLUDEPATH += $$PWD/presentationLayer
 
 SOURCES += \
     main.cpp \
+    presentationLayer/mybooks.cpp \
     presentationLayer/dashboard.cpp \
     presentationLayer/authwindow.cpp \
     presentationLayer/mainwindow.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
     presentationLayer/readbook.cpp
 
 HEADERS += \
+    presentationLayer/mybooks.h \
     presentationLayer/dashboard.h \
     presentationLayer/authwindow.h \
     presentationLayer/mainwindow.h \
@@ -26,6 +28,7 @@ HEADERS += \
     presentationLayer/readbook.h
 
 FORMS += \
+    presentationLayer/mybooks.ui \
     presentationLayer/dashboard.ui \
     presentationLayer/authwindow.ui \
     presentationLayer/mainwindow.ui \

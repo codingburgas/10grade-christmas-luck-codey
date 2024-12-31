@@ -1,6 +1,7 @@
 #include "dashboard.h"
 #include "ui_dashboard.h"
 #include "writebook.h"
+#include "mybooks.h"
 
 Dashboard::Dashboard(QWidget *parent)
     : QDialog(parent)
@@ -57,6 +58,19 @@ void Dashboard::on_pushButton_3_clicked()
     Dashboard Dashboard;
     Dashboard.setModal(true);
     Dashboard.exec();
+
+    this->close();
+}
+
+
+void Dashboard::on_pushButton_4_clicked()
+{
+    this->hide();
+
+    //Create and show Dashboard as a modal dialog
+    myBooks myBooks;
+    myBooks.setModal(true);
+    myBooks.exec();
 
     this->close();
 }

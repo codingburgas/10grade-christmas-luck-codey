@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dashboard</class>
- <widget class="QDialog" name="Dashboard">
+ <class>myBooks</class>
+ <widget class="QDialog" name="myBooks">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dashboard</string>
+   <string>myBooks</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(245, 245, 245);</string>
@@ -67,58 +67,38 @@ font: 16pt &quot;Segoe UI&quot;;</string>
      <string>Codey</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_write">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>360</y>
-      <width>16</width>
-      <height>17</height>
+      <y>300</y>
+      <width>106</width>
+      <height>26</height>
      </rect>
     </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="../resources.qrc">:/assets/images/writeIcon.png</pixmap>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>355</y>
-      <width>108</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_4">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 0);
 font: 600 11pt &quot;Segoe UI&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Write a book</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>350</y>
-      <width>151</width>
-      <height>29</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: transparent;
-background-color: transparent;</string>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
+       </property>
+       <property name="text">
+        <string>My books</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_books">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="../resources.qrc">:/assets/images/booksIcon.png</pixmap>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
@@ -135,26 +115,6 @@ background-color: transparent;</string>
     <property name="styleSheet">
      <string notr="true">color: transparent;
 background-color: transparent;</string>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_4">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>300</y>
-      <width>151</width>
-      <height>29</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: transparent;
-color: transparent;</string>
     </property>
     <property name="text">
      <string>PushButton</string>
@@ -193,49 +153,33 @@ font: 600 11pt &quot;Segoe UI&quot;;</string>
      <pixmap resource="../resources.qrc">:/assets/images/libraryIcon.png</pixmap>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>40</x>
       <y>300</y>
-      <width>81</width>
-      <height>24</height>
+      <width>121</width>
+      <height>29</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
-font: 600 11pt &quot;Segoe UI&quot;;</string>
+     <string notr="true">background-color: transparent;
+color: transparent;</string>
     </property>
     <property name="text">
-     <string>My books</string>
+     <string>PushButton</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_books">
-    <property name="geometry">
-     <rect>
-      <x>51</x>
-      <y>301</y>
-      <width>16</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="../resources.qrc">:/assets/images/booksIcon.png</pixmap>
-    </property>
-   </widget>
+   <zorder>label_libraryIcon</zorder>
    <zorder>label_3</zorder>
    <zorder>label_logo</zorder>
    <zorder>label</zorder>
    <zorder>layoutWidget</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>label_write</zorder>
-   <zorder>label_5</zorder>
-   <zorder>pushButton</zorder>
    <zorder>pushButton_3</zorder>
-   <zorder>pushButton_4</zorder>
+   <zorder>pushButton</zorder>
   </widget>
   <widget class="QFrame" name="frame_2">
    <property name="geometry">
@@ -260,7 +204,7 @@ font: 600 11pt &quot;Segoe UI&quot;;</string>
      <rect>
       <x>70</x>
       <y>0</y>
-      <width>111</width>
+      <width>151</width>
       <height>41</height>
      </rect>
     </property>
@@ -269,7 +213,7 @@ font: 600 11pt &quot;Segoe UI&quot;;</string>
 font: 700 18pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
-     <string>Library</string>
+     <string>My Books</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">
@@ -278,15 +222,16 @@ font: 700 18pt &quot;Segoe UI&quot;;</string>
       <x>70</x>
       <y>40</y>
       <width>191</width>
-      <height>20</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(116, 118, 129);
-font: 300 11pt &quot;Segoe UI&quot;;</string>
+font: 300 11pt &quot;Segoe UI&quot;;
+background-color: transparent;</string>
     </property>
     <property name="text">
-     <string>Let's discover some work</string>
+     <string>Let’s read something!</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
@@ -359,28 +304,6 @@ color: black;</string>
      <string>Search</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>1140</x>
-     <y>128</y>
-     <width>111</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-radius: 4px;
-font: 10pt &quot;Segoe UI&quot;;
-background: #DEE33E;
-color: black;</string>
-   </property>
-   <property name="text">
-    <string>Write a book</string>
-   </property>
   </widget>
   <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
