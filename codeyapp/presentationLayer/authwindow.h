@@ -3,16 +3,20 @@
 
 #include <QDialog>
 
-class AuthWindow : public QDialog {  // Change QWidget to QDialog
+namespace Ui {
+class authWindow;
+}
+
+class authWindow : public QDialog
+{
     Q_OBJECT
 
 public:
-    explicit AuthWindow(QWidget *parent = nullptr);
-    ~AuthWindow();
+    explicit authWindow(QWidget *parent = nullptr);
+    ~authWindow();
 
-    bool loginUser(const QString &username, const QString &password, QString &role);
+private:
+    Ui::authWindow *ui;
 };
-
-
 
 #endif // AUTHWINDOW_H

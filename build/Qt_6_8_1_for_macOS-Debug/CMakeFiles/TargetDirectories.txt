@@ -1,7 +1,0 @@
-/Users/ani/Documents/School/10grade-christmas-luck-codey/build/Qt_6_8_1_for_macOS-Debug/CMakeFiles/edit_cache.dir
-/Users/ani/Documents/School/10grade-christmas-luck-codey/build/Qt_6_8_1_for_macOS-Debug/CMakeFiles/rebuild_cache.dir
-/Users/ani/Documents/School/10grade-christmas-luck-codey/build/Qt_6_8_1_for_macOS-Debug/codeyapp/CMakeFiles/codeyapp.dir
-/Users/ani/Documents/School/10grade-christmas-luck-codey/build/Qt_6_8_1_for_macOS-Debug/codeyapp/CMakeFiles/edit_cache.dir
-/Users/ani/Documents/School/10grade-christmas-luck-codey/build/Qt_6_8_1_for_macOS-Debug/codeyapp/CMakeFiles/rebuild_cache.dir
-/Users/ani/Documents/School/10grade-christmas-luck-codey/build/Qt_6_8_1_for_macOS-Debug/codeyapp/CMakeFiles/codeyapp_autogen_timestamp_deps.dir
-/Users/ani/Documents/School/10grade-christmas-luck-codey/build/Qt_6_8_1_for_macOS-Debug/codeyapp/CMakeFiles/codeyapp_autogen.dir
