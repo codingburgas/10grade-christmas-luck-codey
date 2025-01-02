@@ -24,14 +24,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    // Hide MainWindow before opening authWindow
     this->hide();
 
-    // Create and show authWindow as a modal dialog
+    //Create and show authWindow as a modal dialog
     authWindow authWindow;
-    authWindow.setModal(true);  // Make it modal (blocks interaction with MainWindow)
+    authWindow.setModal(true);
     authWindow.exec();
 
-    // After authWindow is closed, show MainWindow again (optional)
-    this->close();  // This can be omitted if you don't need to show MainWindow again
+    this->close();
 }
