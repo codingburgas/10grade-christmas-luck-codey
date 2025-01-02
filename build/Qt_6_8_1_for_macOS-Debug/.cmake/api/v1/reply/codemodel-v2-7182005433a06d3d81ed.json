@@ -1,0 +1,105 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.30"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "codeyapp",
+					"jsonFile" : "directory-codeyapp-Debug-d89a0ab06c53a727bea7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "codeyapp",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "10grade_christmas_luck_codey"
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "codeyapp",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "codeyapp::@2271ab29910d6caae2c1",
+					"jsonFile" : "target-codeyapp-Debug-8232de938259300d84e0.json",
+					"name" : "codeyapp",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "codeyapp_autogen::@2271ab29910d6caae2c1",
+					"jsonFile" : "target-codeyapp_autogen-Debug-e7fbd9578cd49704461f.json",
+					"name" : "codeyapp_autogen",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "codeyapp_autogen_timestamp_deps::@2271ab29910d6caae2c1",
+					"jsonFile" : "target-codeyapp_autogen_timestamp_deps-Debug-ebd5a4f2afa10b960e29.json",
+					"name" : "codeyapp_autogen_timestamp_deps",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/ani/Documents/School/10grade-christmas-luck-codey/build/Qt_6_8_1_for_macOS-Debug",
+		"source" : "/Users/ani/Documents/School/10grade-christmas-luck-codey"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

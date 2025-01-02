@@ -1,0 +1,27 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"codeyapp/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"id" : "codeyapp_autogen_timestamp_deps::@2271ab29910d6caae2c1",
+	"isGeneratorProvided" : true,
+	"name" : "codeyapp_autogen_timestamp_deps",
+	"paths" : 
+	{
+		"build" : "codeyapp",
+		"source" : "codeyapp"
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}
