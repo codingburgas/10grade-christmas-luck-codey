@@ -1,17 +1,18 @@
 QT       += core gui
-
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
 CONFIG += c++17
+CONFIG += sdk_no_version_check
+# Disable deprecated APIs for Qt 6
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+# Include directories
+INCLUDEPATH += $$PWD/presentationLayer \
+               $$PWD/dataAccessLayer
 
-INCLUDEPATH += $$PWD/presentationLayer
-
+# Source files
 SOURCES += \
     main.cpp \
+    dataAccessLayer/dbConnection.cpp \
     presentationLayer/mybooks.cpp \
     presentationLayer/dashboard.cpp \
     presentationLayer/authwindow.cpp \
@@ -20,7 +21,9 @@ SOURCES += \
     presentationLayer/readbook.cpp \
     presentationLayer/rent.cpp
 
+# Header files
 HEADERS += \
+    dataAccessLayer/dbConnection.h \
     presentationLayer/mybooks.h \
     presentationLayer/dashboard.h \
     presentationLayer/authwindow.h \
@@ -29,6 +32,7 @@ HEADERS += \
     presentationLayer/readbook.h \
     presentationLayer/rent.h
 
+# UI files
 FORMS += \
     presentationLayer/mybooks.ui \
     presentationLayer/dashboard.ui \
@@ -38,10 +42,19 @@ FORMS += \
     presentationLayer/readbook.ui \
     presentationLayer/rent.ui
 
-RESOURCES += resource.qrc \   # Added resource.qrc here
+# Resource files
+RESOURCES += \
     resources.qrc
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+# Library paths
+LIBS += -L/Users/ani/Documents/School/sqlapi/lib \
+        -L/opt/homebrew/opt/mysql/lib
+
+# Include paths for libraries
+INCLUDEPATH += /Users/ani/Documents/School/sqlapi/include
+
+# Link against required libraries
+LIBS += -lSqlAPI -lmysqlclient
+
+# Automatic handling of moc, uic, and rcc
+QMAKE_FEATURES += uic_moc_rc

@@ -4,19 +4,30 @@
 #include <QDialog>
 
 namespace Ui {
-class authWindow;
+class AuthWindow;
 }
 
-class authWindow : public QDialog
+class AuthWindow : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit authWindow(QWidget *parent = nullptr);
-    ~authWindow();
+    explicit AuthWindow(QWidget *parent = nullptr);
+    ~AuthWindow();
+
+    bool loginUser(const QString &username, const QString &password, QString &role);
+
+    QString getUsername() const;
+    QString getPassword() const;
+
+private slots:
+    void on_loginButton_clicked();
+    void on_cancelButton_clicked();
 
 private:
-    Ui::authWindow *ui;
+    Ui::AuthWindow *ui;
+    QString username;
+    QString password;
 };
 
 #endif // AUTHWINDOW_H
