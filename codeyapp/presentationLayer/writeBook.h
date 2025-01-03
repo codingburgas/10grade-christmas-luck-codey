@@ -15,9 +15,6 @@ public:
     explicit writeBook(QWidget *parent = nullptr);
     ~writeBook();
 
-    // Declaration of a virtual function
-    virtual void someFunction();
-
 private slots:
     void on_cancelButton_clicked();
 

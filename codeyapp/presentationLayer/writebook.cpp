@@ -17,20 +17,15 @@ writeBook::~writeBook()
     delete ui;
 }
 
-// Implementation of the virtual function
-void writeBook::someFunction()
-{
-    // Add your logic here (leave it empty if not needed yet)
-}
-
 void writeBook::on_cancelButton_clicked()
 {
     this->hide();
 
-    // Create and show Dashboard as a modal dialog
-    Dashboard dashboard;
-    dashboard.setModal(true);
-    dashboard.exec();
+    //Create and show authWindow as a modal dialog
+    Dashboard Dashboard;
+    Dashboard.setModal(true);
+    Dashboard.exec();
 
     this->close();
 }
+

@@ -17,7 +17,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=10.13 -Wall -Wextra -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -O2 -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=10.13 -Wall -Wextra -fPIC $(DEFINES)
-INCPATH       = -I. -IpresentationLayer -IdataAccessLayer -I../../../sqlapi/include -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/opt/anaconda3/mkspecs/macx-clang
+INCPATH       = -I. -IpresentationLayer -Isqlapi -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/opt/anaconda3/mkspecs/macx-clang
 QMAKE         = /opt/anaconda3/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -37,10 +37,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Codey1.0.0
-DISTDIR = /Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/.tmp/Codey1.0.0
+DISTDIR = /Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/.tmp/Codey1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=10.13 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/opt/anaconda3/lib
-LIBS          = $(SUBLIBS) -L/Users/ani/Documents/School/sqlapi/lib -L/opt/homebrew/opt/mysql/lib -lSqlAPI -lmysqlclient /opt/anaconda3/lib/libQt5Widgets.dylib /opt/anaconda3/lib/libQt5Gui.dylib /opt/anaconda3/lib/libQt5Core.dylib -framework OpenGL -framework AGL   
+LIBS          = $(SUBLIBS) -L/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/sqlapi -lsqlapi /opt/anaconda3/lib/libQt5Widgets.dylib /opt/anaconda3/lib/libQt5Gui.dylib /opt/anaconda3/lib/libQt5Core.dylib -framework OpenGL -framework AGL   
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -60,7 +60,8 @@ SOURCES       = main.cpp \
 		presentationLayer/mainwindow.cpp \
 		presentationLayer/writebook.cpp \
 		presentationLayer/readbook.cpp \
-		presentationLayer/rent.cpp qrc_resources.cpp \
+		presentationLayer/rent.cpp qrc_resource.cpp \
+		qrc_resources.cpp \
 		moc_mybooks.cpp \
 		moc_dashboard.cpp \
 		moc_authwindow.cpp \
@@ -77,6 +78,7 @@ OBJECTS       = main.o \
 		writebook.o \
 		readbook.o \
 		rent.o \
+		qrc_resource.o \
 		qrc_resources.o \
 		moc_mybooks.o \
 		moc_dashboard.o \
@@ -323,7 +325,7 @@ EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
 EXPORT_VALID_ARCHS = arm64
 EXPORT_ACTIVE_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(ARCHS))
 EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_ARCHS), $(EXPORT_VALID_ARCHS)), -arch $(arch))
-EXPORT__PRO_FILE_ = /Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/Codey.pro
+EXPORT__PRO_FILE_ = /Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/Codey.pro
 
 
 include /opt/anaconda3/mkspecs/features/mac/sdk.mk
@@ -546,6 +548,7 @@ Makefile: Codey.pro /opt/anaconda3/mkspecs/macx-clang/qmake.conf /opt/anaconda3/
 		/opt/anaconda3/mkspecs/features/yacc.prf \
 		/opt/anaconda3/mkspecs/features/lex.prf \
 		Codey.pro \
+		resource.qrc \
 		resources.qrc
 	$(QMAKE) -o Makefile Codey.pro
 /opt/anaconda3/mkspecs/features/spec_pre.prf:
@@ -760,6 +763,7 @@ Makefile: Codey.pro /opt/anaconda3/mkspecs/macx-clang/qmake.conf /opt/anaconda3/
 /opt/anaconda3/mkspecs/features/yacc.prf:
 /opt/anaconda3/mkspecs/features/lex.prf:
 Codey.pro:
+resource.qrc:
 resources.qrc:
 qmake: FORCE
 	@$(QMAKE) -o Makefile Codey.pro
@@ -790,7 +794,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents resource.qrc resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/anaconda3/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents dataAccessLayer/dbConnection.h presentationLayer/mybooks.h presentationLayer/dashboard.h presentationLayer/authwindow.h presentationLayer/mainwindow.h presentationLayer/writebook.h presentationLayer/readbook.h presentationLayer/rent.h $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp dataAccessLayer/dbConnection.cpp presentationLayer/mybooks.cpp presentationLayer/dashboard.cpp presentationLayer/authwindow.cpp presentationLayer/mainwindow.cpp presentationLayer/writebook.cpp presentationLayer/readbook.cpp presentationLayer/rent.cpp $(DISTDIR)/
@@ -821,9 +825,13 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all: qrc_resources.cpp
+compiler_rcc_make_all: qrc_resource.cpp qrc_resources.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_resources.cpp
+	-$(DEL_FILE) qrc_resource.cpp qrc_resources.cpp
+qrc_resource.cpp: resource.qrc \
+		/opt/anaconda3/bin/rcc
+	/opt/anaconda3/bin/rcc -name resource resource.qrc -o qrc_resource.cpp
+
 qrc_resources.cpp: resources.qrc \
 		/opt/anaconda3/bin/rcc \
 		assets/images/topLampBackground.png \
@@ -953,7 +961,7 @@ moc_mybooks.cpp: presentationLayer/mybooks.h \
 		/opt/anaconda3/include/qt/QtGui/qtouchdevice.h \
 		moc_predefs.h \
 		/opt/anaconda3/bin/moc
-	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/dataAccessLayer -I/Users/ani/Documents/School/sqlapi/include -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/mybooks.h -o moc_mybooks.cpp
+	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/sqlapi -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/mybooks.h -o moc_mybooks.cpp
 
 moc_dashboard.cpp: presentationLayer/dashboard.h \
 		/opt/anaconda3/include/qt/QtWidgets/QDialog \
@@ -1062,7 +1070,7 @@ moc_dashboard.cpp: presentationLayer/dashboard.h \
 		/opt/anaconda3/include/qt/QtGui/qtouchdevice.h \
 		moc_predefs.h \
 		/opt/anaconda3/bin/moc
-	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/dataAccessLayer -I/Users/ani/Documents/School/sqlapi/include -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/dashboard.h -o moc_dashboard.cpp
+	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/sqlapi -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/dashboard.h -o moc_dashboard.cpp
 
 moc_authwindow.cpp: presentationLayer/authwindow.h \
 		/opt/anaconda3/include/qt/QtWidgets/QDialog \
@@ -1171,7 +1179,7 @@ moc_authwindow.cpp: presentationLayer/authwindow.h \
 		/opt/anaconda3/include/qt/QtGui/qtouchdevice.h \
 		moc_predefs.h \
 		/opt/anaconda3/bin/moc
-	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/dataAccessLayer -I/Users/ani/Documents/School/sqlapi/include -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/authwindow.h -o moc_authwindow.cpp
+	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/sqlapi -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/authwindow.h -o moc_authwindow.cpp
 
 moc_mainwindow.cpp: presentationLayer/mainwindow.h \
 		/opt/anaconda3/include/qt/QtWidgets/QMainWindow \
@@ -1282,7 +1290,7 @@ moc_mainwindow.cpp: presentationLayer/mainwindow.h \
 		/opt/anaconda3/include/qt/QtGui/qicon.h \
 		moc_predefs.h \
 		/opt/anaconda3/bin/moc
-	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/dataAccessLayer -I/Users/ani/Documents/School/sqlapi/include -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/mainwindow.h -o moc_mainwindow.cpp
+	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/sqlapi -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/mainwindow.h -o moc_mainwindow.cpp
 
 moc_writebook.cpp: presentationLayer/writebook.h \
 		/opt/anaconda3/include/qt/QtWidgets/QDialog \
@@ -1391,7 +1399,7 @@ moc_writebook.cpp: presentationLayer/writebook.h \
 		/opt/anaconda3/include/qt/QtGui/qtouchdevice.h \
 		moc_predefs.h \
 		/opt/anaconda3/bin/moc
-	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/dataAccessLayer -I/Users/ani/Documents/School/sqlapi/include -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/writebook.h -o moc_writebook.cpp
+	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/sqlapi -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/writebook.h -o moc_writebook.cpp
 
 moc_readbook.cpp: presentationLayer/readbook.h \
 		/opt/anaconda3/include/qt/QtWidgets/QDialog \
@@ -1500,7 +1508,7 @@ moc_readbook.cpp: presentationLayer/readbook.h \
 		/opt/anaconda3/include/qt/QtGui/qtouchdevice.h \
 		moc_predefs.h \
 		/opt/anaconda3/bin/moc
-	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/dataAccessLayer -I/Users/ani/Documents/School/sqlapi/include -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/readbook.h -o moc_readbook.cpp
+	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/sqlapi -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/readbook.h -o moc_readbook.cpp
 
 moc_rent.cpp: presentationLayer/rent.h \
 		/opt/anaconda3/include/qt/QtWidgets/QDialog \
@@ -1609,7 +1617,7 @@ moc_rent.cpp: presentationLayer/rent.h \
 		/opt/anaconda3/include/qt/QtGui/qtouchdevice.h \
 		moc_predefs.h \
 		/opt/anaconda3/bin/moc
-	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/gei/10grade-christmas-luck-codey/codeyapp/dataAccessLayer -I/Users/ani/Documents/School/sqlapi/include -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/rent.h -o moc_rent.cpp
+	/opt/anaconda3/bin/moc $(DEFINES) --include /Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/moc_predefs.h -I/opt/anaconda3/mkspecs/macx-clang -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/presentationLayer -I/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/sqlapi -I/opt/anaconda3/include/qt -I/opt/anaconda3/include/qt/QtWidgets -I/opt/anaconda3/include/qt/QtGui -I/opt/anaconda3/include/qt/QtCore -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include presentationLayer/rent.h -o moc_rent.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1775,7 +1783,7 @@ main.o: main.cpp presentationLayer/mainwindow.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 dbConnection.o: dataAccessLayer/dbConnection.cpp dataAccessLayer/dbConnection.h \
-		../../../sqlapi/include/SQLAPI.h
+		sqlapi/SQLAPI.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dbConnection.o dataAccessLayer/dbConnection.cpp
 
 mybooks.o: presentationLayer/mybooks.cpp presentationLayer/mybooks.h \
@@ -2002,8 +2010,9 @@ dashboard.o: presentationLayer/dashboard.cpp presentationLayer/dashboard.h \
 		/opt/anaconda3/include/qt/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dashboard.o presentationLayer/dashboard.cpp
 
-authwindow.o: presentationLayer/authwindow.cpp /opt/anaconda3/include/qt/QtWidgets/QMessageBox \
-		/opt/anaconda3/include/qt/QtWidgets/qmessagebox.h \
+authwindow.o: presentationLayer/authwindow.cpp presentationLayer/authwindow.h \
+		/opt/anaconda3/include/qt/QtWidgets/QDialog \
+		/opt/anaconda3/include/qt/QtWidgets/qdialog.h \
 		/opt/anaconda3/include/qt/QtWidgets/qtwidgetsglobal.h \
 		/opt/anaconda3/include/qt/QtGui/qtguiglobal.h \
 		/opt/anaconda3/include/qt/QtCore/qglobal.h \
@@ -2029,7 +2038,6 @@ authwindow.o: presentationLayer/authwindow.cpp /opt/anaconda3/include/qt/QtWidge
 		/opt/anaconda3/include/qt/QtCore/qversiontagging.h \
 		/opt/anaconda3/include/qt/QtGui/qtgui-config.h \
 		/opt/anaconda3/include/qt/QtWidgets/qtwidgets-config.h \
-		/opt/anaconda3/include/qt/QtWidgets/qdialog.h \
 		/opt/anaconda3/include/qt/QtWidgets/qwidget.h \
 		/opt/anaconda3/include/qt/QtGui/qwindowdefs.h \
 		/opt/anaconda3/include/qt/QtCore/qobjectdefs.h \
@@ -2107,11 +2115,12 @@ authwindow.o: presentationLayer/authwindow.cpp /opt/anaconda3/include/qt/QtWidge
 		/opt/anaconda3/include/qt/QtCore/qfiledevice.h \
 		/opt/anaconda3/include/qt/QtGui/qvector2d.h \
 		/opt/anaconda3/include/qt/QtGui/qtouchdevice.h \
+		ui_authwindow.h \
+		dataAccessLayer/login.cpp \
 		dataAccessLayer/dbConnection.h \
-		../../../sqlapi/include/SQLAPI.h \
-		presentationLayer/authwindow.h \
-		/opt/anaconda3/include/qt/QtWidgets/QDialog \
-		ui_authwindow.h
+		sqlapi/SQLAPI.h \
+		/opt/anaconda3/include/qt/QtWidgets/QMessageBox \
+		/opt/anaconda3/include/qt/QtWidgets/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o authwindow.o presentationLayer/authwindow.cpp
 
 mainwindow.o: presentationLayer/mainwindow.cpp presentationLayer/mainwindow.h \
@@ -2225,9 +2234,6 @@ mainwindow.o: presentationLayer/mainwindow.cpp presentationLayer/mainwindow.h \
 		presentationLayer/authwindow.h \
 		/opt/anaconda3/include/qt/QtWidgets/QDialog \
 		/opt/anaconda3/include/qt/QtWidgets/qdialog.h \
-		presentationLayer/dashboard.h \
-		presentationLayer/writebook.h \
-		presentationLayer/readbook.h \
 		/opt/anaconda3/include/qt/QtWidgets/QMessageBox \
 		/opt/anaconda3/include/qt/QtWidgets/qmessagebox.h \
 		/opt/anaconda3/include/qt/QtGui/QPixmap
@@ -2558,6 +2564,9 @@ rent.o: presentationLayer/rent.cpp presentationLayer/rent.h \
 		ui_rent.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rent.o presentationLayer/rent.cpp
 
+qrc_resource.o: qrc_resource.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resource.o qrc_resource.cpp
+
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
@@ -2584,9 +2593,21 @@ moc_rent.o: moc_rent.cpp
 
 ####### Install
 
-install:  FORCE
+install_target: first FORCE
+	@test -d $(INSTALL_ROOT)/opt/Codey/bin || mkdir -p $(INSTALL_ROOT)/opt/Codey/bin
+	$(DEL_FILE) -r $(INSTALL_ROOT)/opt/Codey/bin/Codey.app
+	
+	$(QINSTALL) Codey.app $(INSTALL_ROOT)/opt/Codey/bin/Codey.app
+	-$(STRIP) $(INSTALL_ROOT)/opt/Codey/bin/Codey.app/Contents/MacOS/$(QMAKE_TARGET)
 
-uninstall:  FORCE
+uninstall_target: FORCE
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/opt/Codey/bin/Codey.app
+	-$(DEL_DIR) $(INSTALL_ROOT)/opt/Codey/bin/ 
+
+
+install: install_target  FORCE
+
+uninstall: uninstall_target  FORCE
 
 FORCE:
 

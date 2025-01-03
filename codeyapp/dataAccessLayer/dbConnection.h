@@ -2,16 +2,15 @@
 #define DBCONNECTION_H
 
 #include <SQLAPI.h>
-
 #include <string>
 
-class DbConnection {
-public:
-    static bool loginUser(const std::string &username, const std::string &password, std::string &role);
-};
+// Function to initialize database connection to Azure
+void initDatabaseAzure();
 
-void initDatabaseAzure(const std::string &connectionString);
+// Function to close the database connection
 void closeDatabase();
+
+// Function to get the existing connection object
 SAConnection &getConnection();
 
 #endif // DBCONNECTION_H
