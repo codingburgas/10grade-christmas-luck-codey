@@ -1,31 +1,33 @@
 #include "authwindow.h"
 #include "ui_authwindow.h"
-#include "../dataAccessLayer/login.cpp"
+#include "dataAccessLayer/database.h"
 #include <QMessageBox>
 
 authWindow::authWindow(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::authWindow)
+    , db(new Database("dataAccessLayer/users.txt")) // Initialize the Database
 {
     ui->setupUi(this);
-    initDatabaseAzure();
 }
 
 authWindow::~authWindow()
 {
-    closeDatabase();
     delete ui;
+    delete db; // Clean up the Database instance
 }
 
-void authWindow::on_loginButton_clicked() {
-    std::string username = ui->lineEdit->text().toStdString();
-    std::string password = ui->lineEdit_2->text().toStdString();
-    std::string role;
+// Join button functionality (Login)
+void authWindow::on_joinButton_clicked()
+{
+    QString username = ui->lineEdit->text(); // Ensure usernameLineEdit exists in UI
+    QString password = ui->lineEdit_2->text(); // Ensure passwordLineEdit exists in UI
+    QString role;
 
-    if (login(username, password, role)) {
-        QMessageBox::information(this, "Success", "Login successful! Role: " + QString::fromStdString(role));
-        // Navigate to the appropriate dashboard based on role
+    if (db->authenticateUser(username, password, role)) {
+        QMessageBox::information(this, "Login Successful", "Welcome, " + role + "!");
+        // Proceed to the next screen or functionality
     } else {
-        QMessageBox::warning(this, "Error", "Invalid username or password.");
+        QMessageBox::warning(this, "Login Failed", "Invalid username or password.");
     }
 }

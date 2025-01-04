@@ -2,6 +2,7 @@
 #define AUTHWINDOW_H
 
 #include <QDialog>
+#include "dataAccessLayer/database.h"
 
 namespace Ui {
 class authWindow;
@@ -16,10 +17,11 @@ public:
     ~authWindow();
 
 private slots:
-    void on_loginButton_clicked(); // This must match exactly with the definition
+    void on_joinButton_clicked();
 
 private:
     Ui::authWindow *ui;
+    Database *db; // Added Database instance
 };
 
 #endif // AUTHWINDOW_H
