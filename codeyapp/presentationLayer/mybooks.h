@@ -12,13 +12,11 @@ class myBooks : public QDialog
     Q_OBJECT
 
 public:
-    explicit myBooks(QWidget *parent = nullptr);
+    explicit myBooks(const QString &username, const QString &role, QWidget *parent = nullptr);
     ~myBooks();
 
 private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_3_clicked();
+    void on_pushButton_3_clicked(); // Go back to Library (Dashboard)
 
 private:
     Ui::myBooks *ui;

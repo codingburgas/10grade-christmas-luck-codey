@@ -5,15 +5,20 @@
 #include <QTextStream>
 #include <QMessageBox>
 
-writeBook::writeBook(const QString &author, QWidget *parent)
+writeBook::writeBook(const QString &author, const QString &role, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::writeBook)
     , currentAuthor(author) // Initialize the author
+    , currentRole(role)     // Initialize the role
 {
     ui->setupUi(this);
 
     QPixmap writerImage(":/assets/images/writerImage.png");
     ui->writeImage->setPixmap(writerImage);
+
+    // Optionally display the author's name and role in the Write a Book window
+    ui->username->setText(author); // Ensure QLabel named "label_username" exists in the UI
+    ui->role->setText(role);       // Ensure QLabel named "label_role" exists in the UI
 }
 
 writeBook::~writeBook()
@@ -47,7 +52,9 @@ void writeBook::on_writeButton_clicked()
         // Emit the signal with book data
         emit bookAdded(title, currentAuthor, genre, status);
         QMessageBox::information(this, "Success", "Book added successfully!");
-        this->close(); // Close the write book window
+
+        // Close only the Write a Book dialog
+        this->close();
     } else {
         QMessageBox::critical(this, "Error", "Could not open file for writing.");
     }

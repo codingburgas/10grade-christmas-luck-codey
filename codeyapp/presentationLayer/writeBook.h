@@ -12,7 +12,7 @@ class writeBook : public QDialog
     Q_OBJECT
 
 public:
-    explicit writeBook(const QString &author, QWidget *parent = nullptr); // Pass the author's name
+    explicit writeBook(const QString &author, const QString &role, QWidget *parent = nullptr); // Pass the author's name and role
     ~writeBook();
 
 signals:
@@ -25,6 +25,7 @@ private slots:
 private:
     Ui::writeBook *ui;
     QString currentAuthor; // Store the current author's name
+    QString currentRole;   // Store the current author's role
 };
 
 #endif // WRITEBOOK_H

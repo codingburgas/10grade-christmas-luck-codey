@@ -92,28 +92,20 @@ void Dashboard::loadBooks()
 
 void Dashboard::on_pushButton_2_clicked()
 {
-    this->hide();
-
-    // Create and show writeBook as a modal dialog
-    writeBook writeBook(ui->label_7->text(), this); // Pass the username (author) to the writeBook constructor
-    connect(&writeBook, &writeBook::bookAdded, this, &Dashboard::addBookToTable); // Connect the signal to update table
+    // Open the "Write a Book" dialog with the current username and role
+    writeBook writeBook(ui->label_7->text(), ui->label_8->text(), this); // Pass username (author) and role
+    connect(&writeBook, &writeBook::bookAdded, this, &Dashboard::addBookToTable); // Connect the signal to update the table
     writeBook.setModal(true);
     writeBook.exec();
-
-    this->show(); // Show the dashboard after closing the writeBook window
 }
 
 void Dashboard::on_pushButton_clicked()
 {
-    this->hide();
-
-    // Create and show writeBook as a modal dialog
-    writeBook writeBook(ui->label_7->text(), this); // Pass the username (author) to the writeBook constructor
-    connect(&writeBook, &writeBook::bookAdded, this, &Dashboard::addBookToTable); // Connect the signal to update table
+    // Open the "Write a Book" dialog with the current username and role
+    writeBook writeBook(ui->label_7->text(), ui->label_8->text(), this); // Pass username (author) and role
+    connect(&writeBook, &writeBook::bookAdded, this, &Dashboard::addBookToTable); // Connect the signal to update the table
     writeBook.setModal(true);
     writeBook.exec();
-
-    this->show(); // Show the dashboard after closing the writeBook window
 }
 
 void Dashboard::on_pushButton_3_clicked()
@@ -130,15 +122,12 @@ void Dashboard::on_pushButton_3_clicked()
 
 void Dashboard::on_pushButton_4_clicked()
 {
-    this->hide();
-
-    // Create and show Dashboard as a modal dialog
-    myBooks myBooks;
-    myBooks.setModal(true);
+    // Close Dashboard and open My Books
+    this->close(); // Close Dashboard first
+    myBooks myBooks(ui->label_7->text(), ui->label_8->text(), nullptr);
     myBooks.exec();
-
-    this->close();
 }
+
 
 void Dashboard::addBookToTable(const QString &title, const QString &author, const QString &genre, const QString &status)
 {
