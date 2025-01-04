@@ -22,15 +22,16 @@ Dashboard::Dashboard(QWidget *parent)
     ui->label_books->setPixmap(booksIcon);
     ui->label_write->setPixmap(writeIcon);
 
-    // Set up tableWidget headers
+
     ui->tableWidget->setColumnCount(4);
     ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Status"});
 
-    // Load books from the file
+
+    connect(ui->searchButton, &QPushButton::clicked, this, &Dashboard::on_searchButton_clicked);
+
     loadBooks();
 }
 
-// Overloaded constructor to accept username and role
 Dashboard::Dashboard(const QString &username, const QString &role, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Dashboard)
@@ -46,15 +47,12 @@ Dashboard::Dashboard(const QString &username, const QString &role, QWidget *pare
     ui->label_books->setPixmap(booksIcon);
     ui->label_write->setPixmap(writeIcon);
 
-    // Set username and role labels
     ui->label_7->setText(username);
     ui->label_8->setText(role);
 
-    // Set up tableWidget headers
     ui->tableWidget->setColumnCount(4);
     ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Status"});
 
-    // Load books from the file
     loadBooks();
 }
 
@@ -65,7 +63,7 @@ Dashboard::~Dashboard()
 
 void Dashboard::loadBooks()
 {
-    QFile file("dataAccessLayer/books.txt"); // File containing book data
+    QFile file("dataAccessLayer/books.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << "Could not open books.txt for reading.";
         return;
@@ -76,14 +74,14 @@ void Dashboard::loadBooks()
         QString line = in.readLine();
         QStringList details = line.split(",");
 
-        if (details.size() == 4) { // Ensure the line has exactly 4 fields
+        if (details.size() == 4) {
             int currentRow = ui->tableWidget->rowCount();
             ui->tableWidget->insertRow(currentRow);
 
-            ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(details[0])); // Title
-            ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(details[1])); // Author
-            ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(details[2])); // Genre
-            ui->tableWidget->setItem(currentRow, 3, new QTableWidgetItem(details[3])); // Status
+            ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(details[0]));
+            ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(details[1]));
+            ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(details[2]));
+            ui->tableWidget->setItem(currentRow, 3, new QTableWidgetItem(details[3]));
         }
     }
 
@@ -92,18 +90,17 @@ void Dashboard::loadBooks()
 
 void Dashboard::on_pushButton_2_clicked()
 {
-    // Open the "Write a Book" dialog with the current username and role
-    writeBook writeBook(ui->label_7->text(), ui->label_8->text(), this); // Pass username (author) and role
-    connect(&writeBook, &writeBook::bookAdded, this, &Dashboard::addBookToTable); // Connect the signal to update the table
+    writeBook writeBook(ui->label_7->text(), ui->label_8->text(), this);
+    connect(&writeBook, &writeBook::bookAdded, this, &Dashboard::addBookToTable);
     writeBook.setModal(true);
     writeBook.exec();
 }
 
 void Dashboard::on_pushButton_clicked()
 {
-    // Open the "Write a Book" dialog with the current username and role
-    writeBook writeBook(ui->label_7->text(), ui->label_8->text(), this); // Pass username (author) and role
-    connect(&writeBook, &writeBook::bookAdded, this, &Dashboard::addBookToTable); // Connect the signal to update the table
+
+    writeBook writeBook(ui->label_7->text(), ui->label_8->text(), this);
+    connect(&writeBook, &writeBook::bookAdded, this, &Dashboard::addBookToTable);
     writeBook.setModal(true);
     writeBook.exec();
 }
@@ -112,7 +109,6 @@ void Dashboard::on_pushButton_3_clicked()
 {
     this->hide();
 
-    // Create and show Dashboard as a modal dialog
     Dashboard Dashboard;
     Dashboard.setModal(true);
     Dashboard.exec();
@@ -122,8 +118,7 @@ void Dashboard::on_pushButton_3_clicked()
 
 void Dashboard::on_pushButton_4_clicked()
 {
-    // Close Dashboard and open My Books
-    this->close(); // Close Dashboard first
+    this->close();
     myBooks myBooks(ui->label_7->text(), ui->label_8->text(), nullptr);
     myBooks.exec();
 }
@@ -134,8 +129,24 @@ void Dashboard::addBookToTable(const QString &title, const QString &author, cons
     int currentRow = ui->tableWidget->rowCount();
     ui->tableWidget->insertRow(currentRow);
 
-    ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(title));  // Title
-    ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(author)); // Author
-    ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(genre));  // Genre
-    ui->tableWidget->setItem(currentRow, 3, new QTableWidgetItem(status)); // Status
+    ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(title));
+    ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(author));
+    ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(genre));
+    ui->tableWidget->setItem(currentRow, 3, new QTableWidgetItem(status));
+}
+
+
+void Dashboard::on_searchButton_clicked()
+{
+    QString searchText = ui->searchBar->text();
+
+    for (int row = 0; row < ui->tableWidget->rowCount(); ++row) {
+        QTableWidgetItem *titleItem = ui->tableWidget->item(row, 0);
+
+        if (titleItem && titleItem->text().contains(searchText, Qt::CaseInsensitive)) {
+            ui->tableWidget->setRowHidden(row, false);
+        } else {
+            ui->tableWidget->setRowHidden(row, true);
+        }
+    }
 }

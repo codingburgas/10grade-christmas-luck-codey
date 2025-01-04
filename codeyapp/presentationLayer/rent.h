@@ -19,4 +19,4 @@ private:
     Ui::Rent *ui;
 };
 
-#endif // RENT_H
+#endif

@@ -16,10 +16,10 @@ public:
     ~myBooks();
 
 private slots:
-    void on_pushButton_3_clicked(); // Go back to Library (Dashboard)
+    void on_pushButton_3_clicked();
 
 private:
     Ui::myBooks *ui;
 };
 
-#endif // MYBOOKS_H
+#endif

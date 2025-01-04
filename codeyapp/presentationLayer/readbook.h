@@ -19,4 +19,4 @@ private:
     Ui::readBook *ui;
 };
 
-#endif // READBOOK_H
+#endif

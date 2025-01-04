@@ -7,7 +7,7 @@
 authWindow::authWindow(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::authWindow)
-    , db(new Database("dataAccessLayer/users.txt")) // Initialize the Database
+    , db(new Database("dataAccessLayer/users.txt"))
 {
     ui->setupUi(this);
 }
@@ -15,19 +15,17 @@ authWindow::authWindow(QWidget *parent)
 authWindow::~authWindow()
 {
     delete ui;
-    delete db; // Clean up the Database instance
+    delete db;
 }
 
-// Join button functionality (Login)
 void authWindow::on_pushButton_clicked()
 {
     QString username = ui->lineEdit->text();
     QString password = ui->lineEdit_2->text();
-    QString role = ui->comboBox->currentText(); // Get the role from the combo box
+    QString role = ui->comboBox->currentText();
 
     QFile file("dataAccessLayer/users.txt");
 
-    // Open the users.txt file for reading
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(&file);
         bool usernameExists = false;
@@ -41,7 +39,6 @@ void authWindow::on_pushButton_clicked()
                 if (details[0] == username) {
                     usernameExists = true;
 
-                    // Check if both password and role match
                     if (details[1] == password && details[2] == role) {
                         credentialsMatch = true;
                         break;
@@ -53,17 +50,16 @@ void authWindow::on_pushButton_clicked()
         file.close();
 
         if (credentialsMatch) {
-            // Login successful, proceed to the dashboard
             this->hide();
             Dashboard dashboard(username, role);
             dashboard.setModal(true);
             dashboard.exec();
             this->close();
+
         } else if (usernameExists) {
-            // Username matches, but password or role (or both) don't match
             QMessageBox::warning(this, "Login Failed", "Incorrect password or role. Please try again.");
+
         } else {
-            // Username doesn't exist, create a new account
             if (file.open(QIODevice::Append | QIODevice::Text)) {
                 QTextStream out(&file);
                 out << username << "," << password << "," << role << "\n";

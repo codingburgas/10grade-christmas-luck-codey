@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "dataAccessLayer/database.h"
-#include <QStandardItemModel> // For table data
+#include <QStandardItemModel>
 
 namespace Ui {
 class Dashboard;
@@ -15,7 +15,7 @@ class Dashboard : public QDialog
 
 public:
     explicit Dashboard(QWidget *parent = nullptr);
-    Dashboard(const QString &username, const QString &role, QWidget *parent = nullptr); // Overloaded constructor
+    Dashboard(const QString &username, const QString &role, QWidget *parent = nullptr);
     ~Dashboard();
 
 private slots:
@@ -23,13 +23,13 @@ private slots:
     void on_pushButton_2_clicked();
     void on_pushButton_3_clicked();
     void on_pushButton_4_clicked();
-
-    void addBookToTable(const QString &title, const QString &author, const QString &genre, const QString &status); // Declare this function
+    void on_searchButton_clicked();
+    void addBookToTable(const QString &title, const QString &author, const QString &genre, const QString &status);
 
 private:
     Ui::Dashboard *ui;
-    QStandardItemModel *booksModel; // Model for storing book data
-    void loadBooks(); // Function to load books from the file
+    QStandardItemModel *booksModel;
+    void loadBooks();
 };
 
-#endif // DASHBOARD_H
+#endif

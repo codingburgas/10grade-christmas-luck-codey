@@ -14,7 +14,7 @@ public:
 
 private:
     QString m_filePath;
-    QStringList parseLine(const QString &line) const; // Updated return type to QStringList
+    QStringList parseLine(const QString &line) const;
 };
 
-#endif // DATABASE_H
+#endif

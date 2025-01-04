@@ -26,7 +26,6 @@ void MainWindow::on_pushButton_clicked()
 {
     this->hide();
 
-    //Create and show authWindow as a modal dialog
     authWindow authWindow;
     authWindow.setModal(true);
     authWindow.exec();

@@ -21,7 +21,7 @@ private slots:
 
 private:
     Ui::authWindow *ui;
-    Database *db; // Added Database instance
+    Database *db;
 };
 
-#endif // AUTHWINDOW_H
+#endif

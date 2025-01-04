@@ -15,7 +15,6 @@ myBooks::myBooks(const QString &username, const QString &role, QWidget *parent)
     ui->label_libraryIcon->setPixmap(libraryIcon);
     ui->label_books->setPixmap(booksIcon);
 
-    // Set username and role labels
     ui->label_7->setText(username);
     ui->label_8->setText(role);
 }
@@ -27,8 +26,7 @@ myBooks::~myBooks()
 
 void myBooks::on_pushButton_3_clicked()
 {
-    // Close My Books and open Dashboard with the current username and role
-    this->close(); // Close My Books first
+    this->close();
     Dashboard dashboard(ui->label_7->text(), ui->label_8->text(), nullptr);
     dashboard.exec();
 }
