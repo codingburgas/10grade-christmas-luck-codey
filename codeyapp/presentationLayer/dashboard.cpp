@@ -22,10 +22,8 @@ Dashboard::Dashboard(QWidget *parent)
     ui->label_books->setPixmap(booksIcon);
     ui->label_write->setPixmap(writeIcon);
 
-
     ui->tableWidget->setColumnCount(4);
     ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Status"});
-
 
     connect(ui->searchButton, &QPushButton::clicked, this, &Dashboard::on_searchButton_clicked);
 
@@ -49,6 +47,13 @@ Dashboard::Dashboard(const QString &username, const QString &role, QWidget *pare
 
     ui->label_7->setText(username);
     ui->label_8->setText(role);
+
+    if (role.toLower() == "reader") {
+        ui->pushButton_2->hide();
+        ui->pushButton->hide();
+        ui->label_write->hide();
+        ui->label_5->hide();
+    }
 
     ui->tableWidget->setColumnCount(4);
     ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Status"});
@@ -98,7 +103,6 @@ void Dashboard::on_pushButton_2_clicked()
 
 void Dashboard::on_pushButton_clicked()
 {
-
     writeBook writeBook(ui->label_7->text(), ui->label_8->text(), this);
     connect(&writeBook, &writeBook::bookAdded, this, &Dashboard::addBookToTable);
     writeBook.setModal(true);
@@ -123,7 +127,6 @@ void Dashboard::on_pushButton_4_clicked()
     myBooks.exec();
 }
 
-
 void Dashboard::addBookToTable(const QString &title, const QString &author, const QString &genre, const QString &status)
 {
     int currentRow = ui->tableWidget->rowCount();
@@ -134,7 +137,6 @@ void Dashboard::addBookToTable(const QString &title, const QString &author, cons
     ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(genre));
     ui->tableWidget->setItem(currentRow, 3, new QTableWidgetItem(status));
 }
-
 
 void Dashboard::on_searchButton_clicked()
 {
