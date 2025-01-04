@@ -1,6 +1,7 @@
 #include "authwindow.h"
 #include "ui_authwindow.h"
 #include "dataAccessLayer/database.h"
+#include "dashboard.h"
 #include <QMessageBox>
 
 authWindow::authWindow(QWidget *parent)
@@ -18,16 +19,69 @@ authWindow::~authWindow()
 }
 
 // Join button functionality (Login)
-void authWindow::on_joinButton_clicked()
+void authWindow::on_pushButton_clicked()
 {
-    QString username = ui->lineEdit->text(); // Ensure usernameLineEdit exists in UI
-    QString password = ui->lineEdit_2->text(); // Ensure passwordLineEdit exists in UI
-    QString role;
+    QString username = ui->lineEdit->text();
+    QString password = ui->lineEdit_2->text();
+    QString role = ui->comboBox->currentText(); // Get the role from the combo box
 
-    if (db->authenticateUser(username, password, role)) {
-        QMessageBox::information(this, "Login Successful", "Welcome, " + role + "!");
-        // Proceed to the next screen or functionality
+    QFile file("dataAccessLayer/users.txt");
+
+    // Open the users.txt file for reading
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        bool usernameExists = false;
+        bool credentialsMatch = false;
+
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            QStringList details = line.split(",");
+
+            if (details.size() == 3) {
+                if (details[0] == username) {
+                    usernameExists = true;
+
+                    // Check if both password and role match
+                    if (details[1] == password && details[2] == role) {
+                        credentialsMatch = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        file.close();
+
+        if (credentialsMatch) {
+            // Login successful, proceed to the dashboard
+            this->hide();
+            Dashboard dashboard(username, role);
+            dashboard.setModal(true);
+            dashboard.exec();
+            this->close();
+        } else if (usernameExists) {
+            // Username matches, but password or role (or both) don't match
+            QMessageBox::warning(this, "Login Failed", "Incorrect password or role. Please try again.");
+        } else {
+            // Username doesn't exist, create a new account
+            if (file.open(QIODevice::Append | QIODevice::Text)) {
+                QTextStream out(&file);
+                out << username << "," << password << "," << role << "\n";
+                file.close();
+
+                QMessageBox::information(this, "Account Created", "New account created. Proceeding to dashboard.");
+                this->hide();
+                Dashboard dashboard(username, role);
+                dashboard.setModal(true);
+                dashboard.exec();
+                this->close();
+            } else {
+                QMessageBox::critical(this, "Error", "Failed to create a new account. Please try again.");
+            }
+        }
     } else {
-        QMessageBox::warning(this, "Login Failed", "Invalid username or password.");
+        QMessageBox::critical(this, "Error", "Failed to open the user database file.");
     }
 }
+
+

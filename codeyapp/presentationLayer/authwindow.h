@@ -17,7 +17,7 @@ public:
     ~authWindow();
 
 private slots:
-    void on_joinButton_clicked();
+    void on_pushButton_clicked();
 
 private:
     Ui::authWindow *ui;
