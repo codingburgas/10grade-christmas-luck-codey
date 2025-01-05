@@ -37,11 +37,12 @@ myBooks::~myBooks()
 
 void myBooks::loadRentedBooks(const QString &username)
 {
-    QFile file(":/dataAccessLayer/books.txt");
+    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for reading.");
         return;
     }
+
 
     QTextStream in(&file);
     while (!in.atEnd()) {

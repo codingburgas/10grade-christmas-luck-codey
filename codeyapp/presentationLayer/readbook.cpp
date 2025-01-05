@@ -8,11 +8,21 @@ readBook::readBook(const QString &bookTitle, const QString &author, const QStrin
 {
     ui->setupUi(this);
 
+
+    qDebug() << "Book Title: " << bookTitle;
+    qDebug() << "Author: " << author;
+    qDebug() << "Username: " << username;
+    qDebug() << "Role: " << role;
+    qDebug() << "Content received: " << content;
+
     ui->label_2->setText(bookTitle);
     ui->label_3->setText(author);
     ui->label_7->setText(username);
     ui->label_8->setText(role);
-    ui->label->setText(content);
+    ui->contentInput->setPlainText(content);
+    ui->contentInput->setFocus();
+
+    qDebug() << "Content set in QTextEdit: " << ui->contentInput->toPlainText();
 
     connect(ui->pushButton, &QPushButton::clicked, this, &readBook::on_pushButton_clicked);
 }

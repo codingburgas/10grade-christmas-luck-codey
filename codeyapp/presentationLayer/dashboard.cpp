@@ -71,11 +71,12 @@ Dashboard::~Dashboard()
 
 void Dashboard::loadBooks()
 {
-    QFile file(":/dataAccessLayer/books.txt");
+    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << "Could not open books.txt for reading.";
         return;
     }
+
 
     QTextStream in(&file);
     while (!in.atEnd()) {
@@ -117,7 +118,7 @@ void Dashboard::loadBooks()
 
 void Dashboard::rentBook(const QString &title, const QString &author, const QString &genre, int row)
 {
-    QFile file(":/dataAccessLayer/books.txt");
+    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for writing.");
         return;

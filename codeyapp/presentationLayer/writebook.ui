@@ -152,7 +152,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <string>Content</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="contentInput">
+   <widget class="QTextEdit" name="contentInput">
     <property name="geometry">
      <rect>
       <x>90</x>
