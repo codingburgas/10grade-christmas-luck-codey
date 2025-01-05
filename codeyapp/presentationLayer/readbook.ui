@@ -97,10 +97,13 @@ background-color: #FFF;
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>0</y>
+       <y>-70</y>
        <width>1171</width>
        <height>631</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #ffffff;</string>
      </property>
      <property name="text">
       <string>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac tincidunt ante, sed blandit erat. Curabitur nec blandit erat, vitae tempor mauris. Sed tristique molestie leo, ac facilisis libero scelerisque nec. Proin imperdiet odio eget nibh faucibus, at cursus lacus rutrum. Pellentesque ornare pharetra lacus, eu pulvinar orci. Fusce a libero massa. Ut felis mauris, sollicitudin a cursus eget, porta vel eros. Sed at efficitur turpis.

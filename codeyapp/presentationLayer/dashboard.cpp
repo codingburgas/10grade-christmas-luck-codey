@@ -6,6 +6,9 @@
 #include <QFile>
 #include <QTextStream>
 #include <QTableWidgetItem>
+#include <QPushButton>
+#include <QMessageBox>
+#include <readbook.h>
 
 Dashboard::Dashboard(QWidget *parent)
     : QDialog(parent)
@@ -68,7 +71,7 @@ Dashboard::~Dashboard()
 
 void Dashboard::loadBooks()
 {
-    QFile file("dataAccessLayer/books.txt");
+    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << "Could not open books.txt for reading.";
         return;
@@ -79,18 +82,84 @@ void Dashboard::loadBooks()
         QString line = in.readLine();
         QStringList details = line.split(",");
 
-        if (details.size() == 4) {
+        if (details.size() >= 5) {
             int currentRow = ui->tableWidget->rowCount();
             ui->tableWidget->insertRow(currentRow);
 
-            ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(details[0]));
-            ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(details[1]));
-            ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(details[2]));
-            ui->tableWidget->setItem(currentRow, 3, new QTableWidgetItem(details[3]));
+            ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(details[0])); // Title
+            ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(details[1])); // Author
+            ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(details[2])); // Genre
+
+            QPushButton *statusButton = new QPushButton(this);
+
+            if (details[3] == "Available") {
+                statusButton->setText("Rent");
+                connect(statusButton, &QPushButton::clicked, [this, details, currentRow]() {
+                    rentBook(details[0], details[1], details[2], currentRow); // Rent the book
+                });
+            } else if (details[3] == ui->label_7->text()) {
+                statusButton->setText("Read");
+                connect(statusButton, &QPushButton::clicked, [this, details]() {
+                    // Open the readBook window
+                    class readBook readBookWindow(details[0], details[1], ui->label_7->text(), ui->label_8->text(), details[4], this);
+                    readBookWindow.exec();
+                });
+            } else {
+                statusButton->setText("Unavailable");
+                statusButton->setDisabled(true);
+            }
+
+            ui->tableWidget->setCellWidget(currentRow, 3, statusButton); // Add button to Status column
         }
     }
 
     file.close();
+}
+
+void Dashboard::rentBook(const QString &title, const QString &author, const QString &genre, int row)
+{
+    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "Could not open books.txt for writing.");
+        return;
+    }
+
+    QTextStream in(&file);
+    QString updatedContent;
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList details = line.split(",");
+
+        if (details[0] == title && details[1] == author && details[2] == genre) {
+            details[3] = ui->label_7->text(); // Change status to username
+            updatedContent += details.join(",") + "\n";
+        } else {
+            updatedContent += line + "\n";
+        }
+    }
+
+    file.resize(0);
+    QTextStream out(&file);
+    out << updatedContent;
+    file.close();
+
+    QPushButton *button = qobject_cast<QPushButton *>(ui->tableWidget->cellWidget(row, 3));
+    if (button) {
+        button->setText("Read");
+        button->disconnect();
+        connect(button, &QPushButton::clicked, [this, title, author, genre]() {
+            // Open the readBook window
+            class readBook readBookWindow(title, author, ui->label_7->text(), ui->label_8->text(), genre, this);
+            readBookWindow.exec();
+        });
+    }
+
+    QMessageBox::information(this, "Success", "Book rented successfully!");
+}
+
+void Dashboard::readBook(const QString &title, const QString &genre)
+{
+    QMessageBox::information(this, "Reading Book", "You are now reading: " + title + " (" + genre + ")");
 }
 
 void Dashboard::on_pushButton_2_clicked()
@@ -112,11 +181,9 @@ void Dashboard::on_pushButton_clicked()
 void Dashboard::on_pushButton_3_clicked()
 {
     this->hide();
-
-    Dashboard Dashboard;
-    Dashboard.setModal(true);
-    Dashboard.exec();
-
+    Dashboard dashboard(ui->label_7->text(), ui->label_8->text(), nullptr);
+    dashboard.setModal(true);
+    dashboard.exec();
     this->close();
 }
 
@@ -135,7 +202,24 @@ void Dashboard::addBookToTable(const QString &title, const QString &author, cons
     ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(title));
     ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(author));
     ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(genre));
-    ui->tableWidget->setItem(currentRow, 3, new QTableWidgetItem(status));
+
+    QPushButton *statusButton = new QPushButton(this);
+    if (status == "Available") {
+        statusButton->setText("Rent");
+        connect(statusButton, &QPushButton::clicked, [this, title, author, genre, currentRow]() {
+            rentBook(title, author, genre, currentRow);
+        });
+    } else if (status == ui->label_7->text()) {
+        statusButton->setText("Read");
+        connect(statusButton, &QPushButton::clicked, [this, title, genre]() {
+            readBook(title, genre);
+        });
+    } else {
+        statusButton->setText("Unavailable");
+        statusButton->setDisabled(true);
+    }
+
+    ui->tableWidget->setCellWidget(currentRow, 3, statusButton);
 }
 
 void Dashboard::on_searchButton_clicked()

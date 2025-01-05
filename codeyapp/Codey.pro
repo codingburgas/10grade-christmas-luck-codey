@@ -6,7 +6,9 @@ CONFIG += c++17
 
 
 INCLUDEPATH += $$PWD/presentationLayer
-DISTFILES += dataAccessLayer/users.txt
+DISTFILES += \
+    dataAccessLayer/users.txt \
+    dataAccessLayer/books.txt
 
 SOURCES += \
     main.cpp \

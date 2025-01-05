@@ -42,10 +42,10 @@ void writeBook::on_writeButton_clicked()
         return;
     }
 
-    QFile file("dataAccessLayer/books.txt");
+    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
-        out << title << "," << currentAuthor << "," << genre << "," << status << "\n";
+        out << title << "," << currentAuthor << "," << genre << "," << status << "," << content <<"\n";
         file.close();
 
         emit bookAdded(title, currentAuthor, genre, status);
