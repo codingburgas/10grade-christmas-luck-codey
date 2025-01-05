@@ -34,7 +34,7 @@
 # ❓ How does it work?
 ### After opening our application, users are greeted with authentication page, where they can log in their accounts or create one. After logging into their account, users are directed to the library.
 ## Codey as a Writer ✍️
-### There they have 'Write a book' button, that leads them to a window where they can start writing. After that they publish their work for readers.
+### There they have "Write a book" button, that leads them to a window where they can start writing. After that they publish their work for readers.
 ## Codey as a Reader 👓
 ### There they can see the table with written stories that they can read. After picking one, they should click the button 'Rent' and choose for what time they need to borrow it. Readers can see every book they have rented in the 'My books' window.
 # 🌐 Website
