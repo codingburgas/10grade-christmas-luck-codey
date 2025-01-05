@@ -24,8 +24,8 @@ myBooks::myBooks(const QString &username, const QString &role, QWidget *parent)
     ui->label_7->setText(username);
     ui->label_8->setText(role);
 
-    ui->tableWidget->setColumnCount(4); // Update column count to 4
-    ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Action"}); // Add Genre column
+    ui->tableWidget->setColumnCount(4);
+    ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Action"});
 
     loadRentedBooks(username);
 }
@@ -37,7 +37,7 @@ myBooks::~myBooks()
 
 void myBooks::loadRentedBooks(const QString &username)
 {
-    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
+    QFile file(":/dataAccessLayer/books.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for reading.");
         return;
@@ -48,17 +48,16 @@ void myBooks::loadRentedBooks(const QString &username)
         QString line = in.readLine();
         QStringList details = line.split(",");
 
-        if (details.size() >= 5 && details[3] == username) { // Ensure content exists and matches username
+        if (details.size() >= 5 && details[3] == username) {
             int currentRow = ui->tableWidget->rowCount();
             ui->tableWidget->insertRow(currentRow);
 
-            ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(details[0])); // Title
-            ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(details[1])); // Author
-            ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(details[2])); // Genre
+            ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(details[0]));
+            ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(details[1]));
+            ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(details[2]));
 
             QPushButton *readButton = new QPushButton("Read", this);
             connect(readButton, &QPushButton::clicked, [this, details]() {
-                // Open the readBook window
                 class readBook readBookWindow(details[0], details[1], ui->label_7->text(), ui->label_8->text(), details[4], this);
                 readBookWindow.exec();
             });

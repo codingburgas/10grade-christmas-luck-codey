@@ -32,8 +32,8 @@ private:
 
     void loadBooks();
     void addBookToTable(const QString &title, const QString &author, const QString &genre, const QString &status);
-    void rentBook(const QString &title, const QString &author, const QString &genre, int row); // Declare rentBook
-    void readBook(const QString &title, const QString &genre);                                // Declare readBook
+    void rentBook(const QString &title, const QString &author, const QString &genre, int row);
+    void readBook(const QString &title, const QString &genre);
 };
 
 #endif

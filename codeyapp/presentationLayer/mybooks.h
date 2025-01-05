@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-class readBook; // Forward declaration
+class readBook;
 
 namespace Ui {
 class myBooks;
@@ -23,7 +23,7 @@ private slots:
 private:
     Ui::myBooks *ui;
 
-    void loadRentedBooks(const QString &username); // Declare loadRentedBooks
+    void loadRentedBooks(const QString &username);
 };
 
-#endif // MYBOOKS_H
+#endif

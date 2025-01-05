@@ -7,7 +7,7 @@
 authWindow::authWindow(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::authWindow)
-    , db(new Database("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt"))
+    , db(new Database(":/dataAccessLayer/users.txt"))
 {
     ui->setupUi(this);
 }
@@ -24,7 +24,7 @@ void authWindow::on_pushButton_clicked()
     QString password = ui->lineEdit_2->text();
     QString role = ui->comboBox->currentText();
 
-    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt");
+    QFile file(":/dataAccessLayer/users.txt");
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(&file);
