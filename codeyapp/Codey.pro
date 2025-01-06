@@ -13,6 +13,7 @@ DISTFILES += \
 SOURCES += \
     main.cpp \
     dataAccessLayer/database.cpp \
+    presentationLayer/deposit.cpp \
     presentationLayer/mybooks.cpp \
     presentationLayer/dashboard.cpp \
     presentationLayer/authwindow.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
 
 HEADERS += \
     dataAccessLayer/database.h \
+    presentationLayer/deposit.h \
     presentationLayer/mybooks.h \
     presentationLayer/dashboard.h \
     presentationLayer/authwindow.h \
@@ -32,6 +34,7 @@ HEADERS += \
     presentationLayer/rent.h
 
 FORMS += \
+    presentationLayer/deposit.ui \
     presentationLayer/mybooks.ui \
     presentationLayer/dashboard.ui \
     presentationLayer/authwindow.ui \

@@ -1,4 +1,5 @@
 #include "dashboard.h"
+#include "deposit.h"
 #include "ui_dashboard.h"
 #include "writebook.h"
 #include "mybooks.h"
@@ -20,6 +21,8 @@ Dashboard::Dashboard(QWidget *parent)
     QPixmap libraryIcon(":/assets/images/libraryIcon.png");
     QPixmap booksIcon(":/assets/images/booksIcon.png");
     QPixmap writeIcon(":/assets/images/writeIcon.png");
+    QPixmap depositIcon(":/assets/images/depositIcon.png");
+    QPixmap withdrawIcon(":/assets/images/withdrawIcon.png");
     ui->label_logo->setPixmap(logo);
     ui->label_libraryIcon->setPixmap(libraryIcon);
     ui->label_books->setPixmap(booksIcon);
@@ -27,6 +30,7 @@ Dashboard::Dashboard(QWidget *parent)
 
     ui->tableWidget->setColumnCount(4);
     ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Status"});
+
 
     connect(ui->searchButton, &QPushButton::clicked, this, &Dashboard::on_searchButton_clicked);
 
@@ -236,3 +240,15 @@ void Dashboard::on_searchButton_clicked()
         }
     }
 }
+
+void Dashboard::on_pushButton_5_clicked()
+{
+
+    //Create and show Deposit as a modal dialog
+    Deposit Deposit;
+    Deposit.setModal(true);
+    Deposit.exec();
+
+    this->close();
+}
+
