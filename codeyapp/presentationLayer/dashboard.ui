@@ -312,6 +312,26 @@ background-color: transparent;</string>
      <string>PushButton</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_6">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>350</y>
+      <width>111</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: transparent;
+background-color: transparent;</string>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
    <zorder>label_libraryIcon</zorder>
    <zorder>label_4</zorder>
    <zorder>label_books</zorder>
@@ -328,6 +348,7 @@ background-color: transparent;</string>
    <zorder>label_10</zorder>
    <zorder>label_11</zorder>
    <zorder>pushButton_5</zorder>
+   <zorder>pushButton_6</zorder>
   </widget>
   <widget class="QFrame" name="frame_2">
    <property name="geometry">
@@ -454,7 +475,7 @@ color: black;</string>
      <string>Search</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_9">
+   <widget class="QLabel" name="label_funds">
     <property name="geometry">
      <rect>
       <x>950</x>

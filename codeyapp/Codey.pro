@@ -20,7 +20,8 @@ SOURCES += \
     presentationLayer/mainwindow.cpp \
     presentationLayer/writebook.cpp \
     presentationLayer/readbook.cpp \
-    presentationLayer/rent.cpp
+    presentationLayer/rent.cpp \
+    presentationLayer/withdraw.cpp
 
 HEADERS += \
     dataAccessLayer/database.h \
@@ -31,7 +32,8 @@ HEADERS += \
     presentationLayer/mainwindow.h \
     presentationLayer/writebook.h \
     presentationLayer/readbook.h \
-    presentationLayer/rent.h
+    presentationLayer/rent.h \
+    presentationLayer/withdraw.h
 
 FORMS += \
     presentationLayer/deposit.ui \
@@ -41,7 +43,8 @@ FORMS += \
     presentationLayer/mainwindow.ui \
     presentationLayer/writebook.ui \
     presentationLayer/readbook.ui \
-    presentationLayer/rent.ui
+    presentationLayer/rent.ui \
+    presentationLayer/withdraw.ui
 
 RESOURCES += resource.qrc \
     resources.qrc

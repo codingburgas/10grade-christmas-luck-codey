@@ -1,5 +1,6 @@
 #include "dashboard.h"
 #include "deposit.h"
+#include "withdraw.h"
 #include "ui_dashboard.h"
 #include "writebook.h"
 #include "mybooks.h"
@@ -248,6 +249,17 @@ void Dashboard::on_pushButton_5_clicked()
     Deposit Deposit;
     Deposit.setModal(true);
     Deposit.exec();
+
+    this->close();
+}
+
+
+void Dashboard::on_pushButton_6_clicked()
+{
+    //Create and show Withdraw as a modal dialog
+    Withdraw Withdraw;
+    Withdraw.setModal(true);
+    Withdraw.exec();
 
     this->close();
 }
