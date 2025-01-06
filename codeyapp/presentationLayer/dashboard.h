@@ -26,9 +26,7 @@ private slots:
     void on_pushButton_3_clicked();
     void on_pushButton_4_clicked();
     void on_searchButton_clicked();
-
     void on_pushButton_5_clicked();
-
     void on_pushButton_6_clicked();
 
 private:
@@ -38,6 +36,7 @@ private:
     void addBookToTable(const QString &title, const QString &author, const QString &genre, const QString &status);
     void rentBook(const QString &title, const QString &author, const QString &genre, int row);
     void readBook(const QString &title, const QString &genre);
+    void updateBookDetails(const QString &title, const QString &author, const QString &genre, const QString &renter, int daysLeft); // Added this line
 };
 
 #endif

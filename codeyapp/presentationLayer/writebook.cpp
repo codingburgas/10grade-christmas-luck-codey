@@ -36,6 +36,7 @@ void writeBook::on_writeButton_clicked()
     QString genre = ui->genreInput->text();
     QString content = ui->contentInput->toPlainText();
     QString status = "Available";
+    QString daysLeft = "0"; // Default value for books that are not rented
 
     if (title.isEmpty() || genre.isEmpty() || content.isEmpty()) {
         QMessageBox::warning(this, "Missing Information", "Please fill out all fields.");
@@ -45,7 +46,7 @@ void writeBook::on_writeButton_clicked()
     QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
-        out << title << "," << currentAuthor << "," << genre << "," << status << "," << content <<"\n";
+        out << title << "," << currentAuthor << "," << genre << "," << status << "," << content << "," << daysLeft << "\n";
         file.close();
 
         emit bookAdded(title, currentAuthor, genre, status);

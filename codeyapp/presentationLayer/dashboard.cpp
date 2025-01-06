@@ -11,6 +11,7 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <readbook.h>
+#include <rent.h>
 
 Dashboard::Dashboard(QWidget *parent)
     : QDialog(parent)
@@ -74,6 +75,43 @@ Dashboard::~Dashboard()
     delete ui;
 }
 
+void Dashboard::updateBookDetails(const QString &title, const QString &author, const QString &genre, const QString &renter, int daysLeft)
+{
+    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "Could not open books.txt for writing.");
+        return;
+    }
+
+    QTextStream in(&file);
+    QString updatedContent;
+    bool bookFound = false;
+
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList details = line.split(",");
+
+        if (details.size() >= 6 && details[0] == title && details[1] == author && details[2] == genre) {
+            details[3] = renter;              // Update renter's username
+            details[5] = QString::number(daysLeft); // Update the daysLeft field
+            bookFound = true;
+        }
+
+        updatedContent += details.join(",") + "\n";
+    }
+
+    file.resize(0); // Clear the file before writing updated content
+    QTextStream out(&file);
+    out << updatedContent;
+    file.close();
+
+    if (bookFound) {
+        QMessageBox::information(this, "Success", QString("The book has been successfully rented for %1 days!").arg(daysLeft));
+    } else {
+        QMessageBox::critical(this, "Error", "Could not find the book in the database to update.");
+    }
+}
+
 void Dashboard::loadBooks()
 {
     QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
@@ -82,34 +120,43 @@ void Dashboard::loadBooks()
         return;
     }
 
-
     QTextStream in(&file);
     while (!in.atEnd()) {
         QString line = in.readLine();
         QStringList details = line.split(",");
 
-        if (details.size() >= 5) {
+        if (details.size() >= 6) { // Ensure the file contains all fields, including daysLeft
             int currentRow = ui->tableWidget->rowCount();
             ui->tableWidget->insertRow(currentRow);
 
-            ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(details[0]));
-            ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(details[1]));
-            ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(details[2]));
+            ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(details[0])); // Title
+            ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(details[1])); // Author
+            ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(details[2])); // Genre
 
             QPushButton *statusButton = new QPushButton(this);
 
             if (details[3] == "Available") {
+                // If the book is available
                 statusButton->setText("Rent");
-                connect(statusButton, &QPushButton::clicked, [this, details, currentRow]() {
-                    rentBook(details[0], details[1], details[2], currentRow);
+                connect(statusButton, &QPushButton::clicked, [this, details]() {
+                    // Open the Rent dialog
+                    Rent rentDialog(ui->label_7->text(), details[0], details[1], details[2], this);
+                    if (rentDialog.exec() == QDialog::Accepted) {
+                        // Retrieve the days rented from Rent dialog
+                        int daysRented = rentDialog.getDaysRented();
+                        updateBookDetails(details[0], details[1], details[2], ui->label_7->text(), daysRented);
+                    }
                 });
             } else if (details[3] == ui->label_7->text()) {
-                statusButton->setText("Read");
+                // If the book is rented by the current user
+                int daysLeft = details[5].toInt(); // Convert daysLeft to an integer
+                statusButton->setText(QString("Read, %1 days left").arg(daysLeft));
                 connect(statusButton, &QPushButton::clicked, [this, details]() {
                     class readBook readBookWindow(details[0], details[1], ui->label_7->text(), ui->label_8->text(), details[4], this);
                     readBookWindow.exec();
                 });
             } else {
+                // If the book is rented by another user
                 statusButton->setText("Unavailable");
                 statusButton->setDisabled(true);
             }
@@ -121,45 +168,62 @@ void Dashboard::loadBooks()
     file.close();
 }
 
+
 void Dashboard::rentBook(const QString &title, const QString &author, const QString &genre, int row)
 {
-    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
-    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        QMessageBox::critical(this, "Error", "Could not open books.txt for writing.");
-        return;
-    }
+    // Open the Rent dialog
+    Rent rentDialog(ui->label_7->text(), title, author, genre, this);
+    if (rentDialog.exec() == QDialog::Accepted) {
+        // Get the number of days rented from the Rent dialog
+        int daysRented = rentDialog.getDaysRented();
 
-    QTextStream in(&file);
-    QString updatedContent;
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        QStringList details = line.split(",");
-
-        if (details[0] == title && details[1] == author && details[2] == genre) {
-            details[3] = ui->label_7->text();
-            updatedContent += details.join(",") + "\n";
-        } else {
-            updatedContent += line + "\n";
+        // Open the file to update the book details
+        QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
+        if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+            QMessageBox::critical(this, "Error", "Could not open books.txt for writing.");
+            return;
         }
+
+        QTextStream in(&file);
+        QString updatedContent;
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            QStringList details = line.split(",");
+
+            if (details[0] == title && details[1] == author && details[2] == genre) {
+                // Update the renter's username and the days left
+                details[3] = ui->label_7->text();         // Update status to current user
+                if (details.size() >= 6) {
+                    details[5] = QString::number(daysRented); // Update days left
+                } else {
+                    details.append(QString::number(daysRented)); // Add days left if not present
+                }
+                updatedContent += details.join(",") + "\n";
+            } else {
+                updatedContent += line + "\n";
+            }
+        }
+
+        // Rewrite the updated content to the file
+        file.resize(0);
+        QTextStream out(&file);
+        out << updatedContent;
+        file.close();
+
+        // Update the button text for the rented book
+        QPushButton *button = qobject_cast<QPushButton *>(ui->tableWidget->cellWidget(row, 3));
+        if (button) {
+            button->setText(QString("Read, %1 days left").arg(daysRented));
+            button->disconnect();
+            connect(button, &QPushButton::clicked, [this, title, author, genre]() {
+                // Open the readBook window
+                class readBook readBookWindow(title, author, ui->label_7->text(), ui->label_8->text(), genre, this);
+                readBookWindow.exec();
+            });
+        }
+
+        QMessageBox::information(this, "Success", QString("You have rented the book for %1 days!").arg(daysRented));
     }
-
-    file.resize(0);
-    QTextStream out(&file);
-    out << updatedContent;
-    file.close();
-
-    QPushButton *button = qobject_cast<QPushButton *>(ui->tableWidget->cellWidget(row, 3));
-    if (button) {
-        button->setText("Read");
-        button->disconnect();
-        connect(button, &QPushButton::clicked, [this, title, author, genre]() {
-            // Open the readBook window
-            class readBook readBookWindow(title, author, ui->label_7->text(), ui->label_8->text(), genre, this);
-            readBookWindow.exec();
-        });
-    }
-
-    QMessageBox::information(this, "Success", "Book rented successfully!");
 }
 
 void Dashboard::readBook(const QString &title, const QString &genre)
