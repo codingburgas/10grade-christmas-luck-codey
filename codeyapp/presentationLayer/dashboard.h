@@ -38,7 +38,8 @@ private:
     void addBookToTable(const QString &title, const QString &author, const QString &genre, const QString &status);
     void rentBook(const QString &title, const QString &author, const QString &genre, int row);
     void readBook(const QString &title, const QString &genre);
-    void updateBookDetails(const QString &title, const QString &author, const QString &genre, const QString &renter, int daysLeft); // Added this line
+    void updateBookDetails(const QString &title, const QString &author, const QString &genre, const QString &renter, int daysLeft);
+    void recursiveSearch(int row, const QString &searchText);
 };
 
 #endif

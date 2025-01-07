@@ -97,3 +97,25 @@ void myBooks::on_pushButton_3_clicked()
     Dashboard dashboard(ui->label_7->text(), ui->label_8->text(), nullptr);
     dashboard.exec();
 }
+
+void myBooks::recursiveSearch(int row, const QString &searchText)
+{
+    if (row >= ui->tableWidget->rowCount()) {
+        return;
+    }
+
+    QTableWidgetItem *titleItem = ui->tableWidget->item(row, 0);
+    if (titleItem && titleItem->text().contains(searchText, Qt::CaseInsensitive)) {
+        ui->tableWidget->setRowHidden(row, false);
+    } else {
+        ui->tableWidget->setRowHidden(row, true);
+    }
+
+    recursiveSearch(row + 1, searchText);
+}
+
+void myBooks::on_searchButton_clicked()
+{
+    QString searchText = ui->searchBar->text();
+    recursiveSearch(0, searchText);
+}

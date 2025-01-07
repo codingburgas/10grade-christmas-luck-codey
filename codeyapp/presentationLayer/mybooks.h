@@ -19,12 +19,14 @@ public:
 
 private slots:
     void on_pushButton_3_clicked();
+    void on_searchButton_clicked();
 
 private:
     Ui::myBooks *ui;
 
     void loadRentedBooks(const QString &username);
     void loadUserFunds(const QString &username);
+    void recursiveSearch(int row, const QString &searchText);
 };
 
 #endif

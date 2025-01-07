@@ -318,24 +318,30 @@ void Dashboard::addBookToTable(const QString &title, const QString &author, cons
     ui->tableWidget->setCellWidget(currentRow, 3, statusButton);
 }
 
+void Dashboard::recursiveSearch(int row, const QString &searchText)
+{
+    if (row >= ui->tableWidget->rowCount()) {
+        return;
+    }
+
+    QTableWidgetItem *titleItem = ui->tableWidget->item(row, 0);
+    if (titleItem && titleItem->text().contains(searchText, Qt::CaseInsensitive)) {
+        ui->tableWidget->setRowHidden(row, false);
+    } else {
+        ui->tableWidget->setRowHidden(row, true);
+    }
+
+    recursiveSearch(row + 1, searchText);
+}
+
 void Dashboard::on_searchButton_clicked()
 {
     QString searchText = ui->searchBar->text();
-
-    for (int row = 0; row < ui->tableWidget->rowCount(); ++row) {
-        QTableWidgetItem *titleItem = ui->tableWidget->item(row, 0);
-
-        if (titleItem && titleItem->text().contains(searchText, Qt::CaseInsensitive)) {
-            ui->tableWidget->setRowHidden(row, false);
-        } else {
-            ui->tableWidget->setRowHidden(row, true);
-        }
-    }
+    recursiveSearch(0, searchText);
 }
 
 void Dashboard::on_pushButton_5_clicked()
 {
-    // Create and show Deposit as a modal dialog
     Deposit depositDialog(this);
     if (depositDialog.exec() == QDialog::Accepted) {
         QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt");
