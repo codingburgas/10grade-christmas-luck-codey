@@ -1,10 +1,5 @@
-ani,123,Writerania,133.00,Reader
-ani,123,Writer
-ania,123,Reader
-sop,sop,Reader
-iva,123,Writer,20
-ижа,123,Writer,0.00
-hjmj,ghjghj,Reader,0
-fgjvhj,fghfvghvg,Reader,0
-hjhjkhj,hjhjk,Reader,0
-Iva Raykova,123,Writer,8
+ani,123,Writerania,100.00,Reader
+iva,123,Writer,1030
+sop,123,Reader,0
+IVA,123,Writer,0
+wop,123,Reader,0

@@ -27,6 +27,8 @@ private:
     void loadRentedBooks(const QString &username);
     void loadUserFunds(const QString &username);
     void recursiveSearch(int row, const QString &searchText);
+    void returnBook(const QString &title, const QString &author, const QString &genre, int row);
+    void fineUser(const QString &username, int fineAmount);
 };
 
 #endif

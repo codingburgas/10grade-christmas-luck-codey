@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QTextStream>
 #include "dashboard.h"
+#include <QDate>
 
 Rent::Rent(const QString &user, const QString &title, const QString &author, const QString &genre, QWidget *parent)
     : QDialog(parent)
@@ -42,7 +43,8 @@ void Rent::onRentButtonClicked()
     int rentDays = rentDaysStr.toInt();
 
     double bookPrice = 0.0;
-    QFile bookFile("E:/Mariq/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
+    QString author;
+    QFile bookFile("../../../../../dataAccessLayer/books.txt");
     if (!bookFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books file for reading.");
         return;
@@ -57,6 +59,7 @@ void Rent::onRentButtonClicked()
 
         if (details.size() >= 7 && details[0] == bookTitle && details[1] == bookAuthor && details[2] == bookGenre) {
             bookPrice = details[6].toDouble();
+            author = details[1];
             bookFound = true;
             break;
         }
@@ -68,8 +71,7 @@ void Rent::onRentButtonClicked()
         return;
     }
 
-
-    QFile userFile("../../dataAccessLayer/users.txt");
+    QFile userFile("../../../../../dataAccessLayer/users.txt");
     if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users file for updating.");
         return;
@@ -105,6 +107,30 @@ void Rent::onRentButtonClicked()
     userFile.close();
 
     if (sufficientFunds) {
+        if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
+            QMessageBox::critical(this, "Error", "Could not open users file for updating.");
+            return;
+        }
+
+        userStream.setDevice(&userFile);
+        updatedUserContent.clear();
+
+        while (!userStream.atEnd()) {
+            QString line = userStream.readLine();
+            QStringList details = line.split(",");
+
+            if (details.size() >= 4 && details[0] == author) {
+                double authorFunds = details[3].toDouble();
+                authorFunds += bookPrice;
+                details[3] = QString::number(authorFunds);
+            }
+            updatedUserContent += details.join(",") + "\n";
+        }
+
+        userFile.resize(0);
+        userOut.setDevice(&userFile);
+        userOut << updatedUserContent;
+        userFile.close();
 
         if (!bookFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
             QMessageBox::critical(this, "Error", "Could not open books file for updating.");

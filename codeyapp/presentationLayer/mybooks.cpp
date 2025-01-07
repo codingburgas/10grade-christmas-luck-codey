@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include "readbook.h"
+#include <QDate>
 
 myBooks::myBooks(const QString &username, const QString &role, QWidget *parent)
     : QDialog(parent)
@@ -36,9 +37,87 @@ myBooks::~myBooks()
     delete ui;
 }
 
+
+void myBooks::returnBook(const QString &title, const QString &author, const QString &genre, int row)
+{
+    QFile bookFile("../../../../../dataAccessLayer/books.txt");
+    if (!bookFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "Could not open books.txt for updating.");
+        return;
+    }
+
+    QTextStream bookStream(&bookFile);
+    QString updatedBookContent;
+    bool bookReturned = false;
+    bool isOverdue = false;
+
+    while (!bookStream.atEnd()) {
+        QString line = bookStream.readLine();
+        QStringList details = line.split(",");
+
+        if (details.size() >= 7 && details[0] == title && details[1] == author && details[2] == genre) {
+            int daysLeft = details[5].toInt();
+            if (daysLeft <= 0) {
+                isOverdue = true;
+            }
+            details[3] = "Available";
+            details[5] = "0";
+            bookReturned = true;
+        }
+
+        updatedBookContent += details.join(",") + "\n";
+    }
+
+    bookFile.resize(0);
+    QTextStream bookOut(&bookFile);
+    bookOut << updatedBookContent;
+    bookFile.close();
+
+    if (bookReturned) {
+        if (isOverdue) {
+            QFile userFile("../../../../../dataAccessLayer/users.txt");
+            if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
+                QMessageBox::critical(this, "Error", "Could not open users.txt for updating.");
+                return;
+            }
+
+            QTextStream userStream(&userFile);
+            QString updatedUserContent;
+
+            while (!userStream.atEnd()) {
+                QString line = userStream.readLine();
+                QStringList details = line.split(",");
+
+                if (details.size() >= 4 && details[0] == ui->label_7->text()) {
+                    double userFunds = details[3].toDouble();
+                    if (userFunds >= 25) {
+                        userFunds -= 25;
+                        QMessageBox::warning(this, "Overdue Fine", "You have been fined 25 BGN for overdue return.");
+                    } else {
+                        QMessageBox::warning(this, "Insufficient Funds", "You do not have enough funds to pay the overdue fine.");
+                    }
+                    details[3] = QString::number(userFunds, 'f', 2);
+                }
+
+                updatedUserContent += details.join(",") + "\n";
+            }
+
+            userFile.resize(0);
+            QTextStream userOut(&userFile);
+            userOut << updatedUserContent;
+            userFile.close();
+        }
+
+        QMessageBox::information(this, "Success", "Book returned successfully!");
+        ui->tableWidget->removeRow(row);
+    } else {
+        QMessageBox::critical(this, "Error", "Could not find the book to return.");
+    }
+}
+
 void myBooks::loadRentedBooks(const QString &username)
 {
-    QFile file("../../dataAccessLayer/books.txt");
+    QFile file("../../../../../dataAccessLayer/books.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for reading.");
         return;
@@ -62,7 +141,20 @@ void myBooks::loadRentedBooks(const QString &username)
                 class readBook readBookWindow(details[0], details[1], ui->label_7->text(), ui->label_8->text(), details[4], this);
                 readBookWindow.exec();
             });
-            ui->tableWidget->setCellWidget(currentRow, 3, readButton);
+
+            QPushButton *returnButton = new QPushButton("Return", this);
+            connect(returnButton, &QPushButton::clicked, [this, details, currentRow]() {
+                returnBook(details[0], details[1], details[2], currentRow);
+            });
+
+            QWidget *buttonWidget = new QWidget(this);
+            QHBoxLayout *layout = new QHBoxLayout(buttonWidget);
+            layout->addWidget(readButton);
+            layout->addWidget(returnButton);
+            layout->setContentsMargins(0, 0, 0, 0);
+            buttonWidget->setLayout(layout);
+
+            ui->tableWidget->setCellWidget(currentRow, 3, buttonWidget);
         }
     }
 
@@ -71,7 +163,7 @@ void myBooks::loadRentedBooks(const QString &username)
 
 void myBooks::loadUserFunds(const QString &username)
 {
-    QFile file("../../dataAccessLayer/users.txt");
+    QFile file("../../../../../dataAccessLayer/users.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users.txt for reading.");
         return;
