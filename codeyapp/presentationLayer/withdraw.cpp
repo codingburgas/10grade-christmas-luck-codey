@@ -34,7 +34,7 @@ void Withdraw::onWithdrawButtonClicked()
     }
 
     double withdrawAmount = withdrawAmountStr.toDouble();
-    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt");
+    QFile file("../../../../../dataAccessLayer/users.txt");
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users.txt for writing.");
         return;

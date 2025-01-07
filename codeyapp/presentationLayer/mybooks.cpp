@@ -38,7 +38,7 @@ myBooks::~myBooks()
 
 void myBooks::loadRentedBooks(const QString &username)
 {
-    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
+    QFile file("../../../../../dataAccessLayer/books.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for reading.");
         return;
@@ -71,7 +71,7 @@ void myBooks::loadRentedBooks(const QString &username)
 
 void myBooks::loadUserFunds(const QString &username)
 {
-    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt");
+    QFile file("../../../../../dataAccessLayer/users.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users.txt for reading.");
         return;

@@ -15,3 +15,4 @@ wv,iva,sv,iva,erwb,1,10
 evsxbuuk,iva,ukd,iva,ddjsr,1,10
 weweg,ижа,wegwe,ижа,sfb,1,10
 we,ижа,wev,Available,etn,0,2
+ewr,iva,erwg,iva,ert,1,10

@@ -68,9 +68,8 @@ void Rent::onRentButtonClicked()
         return;
     }
 
-    qDebug() << "Book price: " << bookPrice;
 
-    QFile userFile("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt");
+    QFile userFile("../../../../../dataAccessLayer/users.txt");
     if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users file for updating.");
         return;
@@ -86,7 +85,6 @@ void Rent::onRentButtonClicked()
 
         if (details.size() >= 4 && details[0] == username && !sufficientFunds) {
             double userFunds = details[3].toDouble();
-            qDebug() << "User funds: " << userFunds;
 
             if (userFunds >= bookPrice) {
                 userFunds -= bookPrice;

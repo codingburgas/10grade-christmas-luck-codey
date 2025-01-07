@@ -104,7 +104,7 @@ QString Dashboard::getUsername() const {
 
 void Dashboard::updateBookDetails(const QString &title, const QString &author, const QString &genre, const QString &renter, int daysLeft)
 {
-    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
+    QFile file("../../../../../dataAccessLayer/books.txt");
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for writing.");
         return;
@@ -141,7 +141,7 @@ void Dashboard::updateBookDetails(const QString &title, const QString &author, c
 
 void Dashboard::loadBooks()
 {
-    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
+    QFile file("../../../../../dataAccessLayer/books.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << "Could not open books.txt for reading.";
         return;
@@ -208,7 +208,7 @@ void Dashboard::rentBook(const QString &title, const QString &author, const QStr
 
         int daysRented = rentDialog.getDaysRented();
 
-        QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
+        QFile file("../../../../../dataAccessLayer/books.txt");
         if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
             QMessageBox::critical(this, "Error", "Could not open books.txt for writing.");
             return;
