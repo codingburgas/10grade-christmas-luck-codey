@@ -19,10 +19,10 @@ readBook::readBook(const QString &bookTitle, const QString &author, const QStrin
     ui->label_3->setText(author);
     ui->label_7->setText(username);
     ui->label_8->setText(role);
-    ui->contentInput->setPlainText(content);
+    ui->contentInput->setText(content);
     ui->contentInput->setFocus();
 
-    qDebug() << "Content set in QTextEdit: " << ui->contentInput->toPlainText();
+    qDebug() << "Content set in QLabel: " << ui->contentInput->text();
 
     connect(ui->pushButton, &QPushButton::clicked, this, &readBook::on_pushButton_clicked);
 }

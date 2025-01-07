@@ -42,7 +42,7 @@ void Rent::onRentButtonClicked()
     int rentDays = rentDaysStr.toInt();
 
     double bookPrice = 0.0;
-    QFile bookFile("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
+    QFile bookFile("E:/Mariq/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
     if (!bookFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books file for reading.");
         return;
@@ -69,7 +69,7 @@ void Rent::onRentButtonClicked()
     }
 
 
-    QFile userFile("../../../../../dataAccessLayer/users.txt");
+    QFile userFile("../../dataAccessLayer/users.txt");
     if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users file for updating.");
         return;

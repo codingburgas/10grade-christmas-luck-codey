@@ -1,18 +1,5 @@
-ewdv,ani,wev,Available,wevwevwev
-swvwv,ani,wsv,ania,wsvwv
-weweg,ani,wegweg,ani,wegweg
-wevwev,ani,wsdvwev,ani,wsvwev
-wvwv,ani,wevwev,ani,wevqewv
-SJDBVKJWSBV,ani,EFB,ani,ESLKRVGNKEJFRNBGVIEZBFRNGVIEZDBNFRGVIUBNSREDFUHGNSRIFTNGBIRTNIRTNGHIRDLFNGHBIJLRFOGNXBIJNFRHIJRNJKFXN BK;JFONR;JTKGHNO;RNH;RDNH;DRNHDRH
-Story,ani,horror,ani,Hello!
-wegweg,ani,wegweg,ani,wegweg,0
-erg,ani,erb,ani,sdzf,0
-3g4,ani,rgb,ani,sdf,0
-rev,ani,erv,ani,erv,0
-3rv,ani,ev,ani,ev,0
-wr,ani,ebrf,ani,erb,3
-wv,iva,sv,iva,erwb,1,10
-evsxbuuk,iva,ukd,iva,ddjsr,1,10
-weweg,ижа,wegwe,ижа,sfb,1,10
-we,ижа,wev,Available,etn,0,2
-ewr,iva,erwg,iva,ert,1,10
+Timmy's adventures,iva,Comedy,iva,erwb,1,10
+Patrick the cat,Georgi,Fantasy,Georgi,ddjsr,1,10
+Scary Olaf,Georgi,Horror,Georgi,sfb,1,10
+The Book,Ivan,Fiction,Iva Raykova,etn,2,2
+Who are we,iva,Literary fiction,iva,ert,1,10
