@@ -1,0 +1,50 @@
+\doxysection{dashboard.\+h}
+\hypertarget{dashboard_8h_source}{}\label{dashboard_8h_source}\mbox{\hyperlink{dashboard_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DASHBOARD\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DASHBOARD\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}dataAccessLayer/database.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QStandardItemModel>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classread_book}{readBook}};}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_ui}{Ui}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }Dashboard;}
+\DoxyCodeLine{00012\ \}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_dashboard_a937d0e0c1b405a283f67a95eadea3e04}{Dashboard}}\ :\ \textcolor{keyword}{public}\ QDialog}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_dashboard_a937d0e0c1b405a283f67a95eadea3e04}{Dashboard}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_dashboard_a937d0e0c1b405a283f67a95eadea3e04}{Dashboard}}(\textcolor{keyword}{const}\ QString\ \&username,\ \textcolor{keyword}{const}\ QString\ \&role,\ QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_dashboard_a43a9becd0adb8641b81174de35842690}{\string~Dashboard}}();}
+\DoxyCodeLine{00022\ \ \ \ \ QString\ \mbox{\hyperlink{class_dashboard_af827b627b8345f549f21c72a5b766eb8}{getUsername}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_dashboard_ab8c28d36273d685004a38b000b86c966}{loadUserFunds}}();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_pushButton\_2\_clicked();}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_pushButton\_clicked();}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_pushButton\_3\_clicked();}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_pushButton\_4\_clicked();}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_searchButton\_clicked();}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_pushButton\_5\_clicked();}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_pushButton\_6\_clicked();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00035\ \ \ \ \ Ui::Dashboard\ *ui;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ loadBooks();}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ addBookToTable(\textcolor{keyword}{const}\ QString\ \&title,\ \textcolor{keyword}{const}\ QString\ \&author,\ \textcolor{keyword}{const}\ QString\ \&genre,\ \textcolor{keyword}{const}\ QString\ \&status);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ rentBook(\textcolor{keyword}{const}\ QString\ \&title,\ \textcolor{keyword}{const}\ QString\ \&author,\ \textcolor{keyword}{const}\ QString\ \&genre,\ \textcolor{keywordtype}{int}\ row);}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ readBook(\textcolor{keyword}{const}\ QString\ \&title,\ \textcolor{keyword}{const}\ QString\ \&genre);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ updateBookDetails(\textcolor{keyword}{const}\ QString\ \&title,\ \textcolor{keyword}{const}\ QString\ \&author,\ \textcolor{keyword}{const}\ QString\ \&genre,\ \textcolor{keyword}{const}\ QString\ \&renter,\ \textcolor{keywordtype}{int}\ daysLeft);}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ recursiveSearch(\textcolor{keywordtype}{int}\ row,\ \textcolor{keyword}{const}\ QString\ \&searchText);}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
