@@ -28,6 +28,7 @@ myBooks::myBooks(const QString &username, const QString &role, QWidget *parent)
     ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Action"});
 
     loadRentedBooks(username);
+    loadUserFunds(username); // Load user funds
 }
 
 myBooks::~myBooks()
@@ -42,7 +43,6 @@ void myBooks::loadRentedBooks(const QString &username)
         QMessageBox::critical(this, "Error", "Could not open books.txt for reading.");
         return;
     }
-
 
     QTextStream in(&file);
     while (!in.atEnd()) {
@@ -63,6 +63,29 @@ void myBooks::loadRentedBooks(const QString &username)
                 readBookWindow.exec();
             });
             ui->tableWidget->setCellWidget(currentRow, 3, readButton);
+        }
+    }
+
+    file.close();
+}
+
+void myBooks::loadUserFunds(const QString &username)
+{
+    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "Could not open users.txt for reading.");
+        return;
+    }
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList details = line.split(",");
+
+        // Assuming file structure: username,password,role,funds
+        if (details.size() >= 4 && details[0] == username) {
+            ui->label_5->setText(QString("%1 BGN").arg(details[3])); // Display funds
+            break;
         }
     }
 

@@ -14,6 +14,10 @@ class Deposit : public QDialog
 public:
     explicit Deposit(QWidget *parent = nullptr);
     ~Deposit();
+    double getDepositAmount() const;
+
+private slots:
+    void onDepositButtonClicked();
 
 private:
     Ui::Deposit *ui;

@@ -68,11 +68,38 @@ Dashboard::Dashboard(const QString &username, const QString &role, QWidget *pare
     ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Status"});
 
     loadBooks();
+    loadUserFunds();
 }
 
 Dashboard::~Dashboard()
 {
     delete ui;
+}
+
+void Dashboard::loadUserFunds()
+{
+    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "Could not open users.txt for reading.");
+        return;
+    }
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList details = line.split(",");
+
+        if (details.size() >= 4 && details[0] == ui->label_7->text()) { // Match username
+            ui->label_funds->setText(QString("Funds: $%1").arg(details[3])); // Display funds
+            break;
+        }
+    }
+
+    file.close();
+}
+
+QString Dashboard::getUsername() const {
+    return ui->label_7->text();
 }
 
 void Dashboard::updateBookDetails(const QString &title, const QString &author, const QString &genre, const QString &renter, int daysLeft)
@@ -308,23 +335,91 @@ void Dashboard::on_searchButton_clicked()
 
 void Dashboard::on_pushButton_5_clicked()
 {
+    // Create and show Deposit as a modal dialog
+    Deposit depositDialog(this);
+    if (depositDialog.exec() == QDialog::Accepted) {
+        QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt");
+        if (file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+            QString updatedContent;
+            QTextStream in(&file);
 
-    //Create and show Deposit as a modal dialog
-    Deposit Deposit;
-    Deposit.setModal(true);
-    Deposit.exec();
+            while (!in.atEnd()) {
+                QString line = in.readLine();
+                QStringList details = line.split(",");
 
-    this->close();
+                if (details.size() >= 4 && details[0] == ui->label_7->text()) {
+                    // Update the funds for the current user
+                    double currentFunds = details[3].toDouble();
+                    double depositAmount = depositDialog.getDepositAmount();
+                    currentFunds += depositAmount;
+
+                    details[3] = QString::number(currentFunds, 'f', 2); // Update funds
+                }
+
+                updatedContent += details.join(",") + "\n";
+            }
+
+            // Rewrite the updated content to the file
+            file.resize(0);
+            QTextStream out(&file);
+            out << updatedContent;
+            file.close();
+
+            QMessageBox::information(this, "Success", QString("Deposited $%1 successfully!").arg(depositDialog.getDepositAmount()));
+
+            // Update the dashboard funds display
+            loadUserFunds();
+        } else {
+            QMessageBox::critical(this, "Error", "Could not open users.txt for writing.");
+        }
+    }
 }
-
 
 void Dashboard::on_pushButton_6_clicked()
 {
-    //Create and show Withdraw as a modal dialog
-    Withdraw Withdraw;
-    Withdraw.setModal(true);
-    Withdraw.exec();
+    // Create and show Withdraw as a modal dialog
+    Withdraw withdrawDialog(this);
+    if (withdrawDialog.exec() == QDialog::Accepted) {
+        QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt");
+        if (file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+            QString updatedContent;
+            QTextStream in(&file);
 
-    this->close();
+            while (!in.atEnd()) {
+                QString line = in.readLine();
+                QStringList details = line.split(",");
+
+                if (details.size() >= 4 && details[0] == ui->label_7->text()) {
+                    // Update the funds for the current user
+                    double currentFunds = details[3].toDouble();
+                    double withdrawAmount = withdrawDialog.getWithdrawAmount();
+
+                    if (withdrawAmount > currentFunds) {
+                        QMessageBox::warning(this, "Insufficient Funds", "You don't have enough funds to withdraw this amount.");
+                        return;
+                    }
+
+                    currentFunds -= withdrawAmount;
+
+                    details[3] = QString::number(currentFunds, 'f', 2); // Update funds
+                }
+
+                updatedContent += details.join(",") + "\n";
+            }
+
+            // Rewrite the updated content to the file
+            file.resize(0);
+            QTextStream out(&file);
+            out << updatedContent;
+            file.close();
+
+            QMessageBox::information(this, "Success", QString("Withdrew $%1 successfully!").arg(withdrawDialog.getWithdrawAmount()));
+
+            // Update the dashboard funds display
+            loadUserFunds();
+        } else {
+            QMessageBox::critical(this, "Error", "Could not open users.txt for writing.");
+        }
+    }
 }
 

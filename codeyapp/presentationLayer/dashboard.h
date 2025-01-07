@@ -19,6 +19,8 @@ public:
     explicit Dashboard(QWidget *parent = nullptr);
     explicit Dashboard(const QString &username, const QString &role, QWidget *parent = nullptr);
     ~Dashboard();
+    QString getUsername() const;
+    void loadUserFunds();
 
 private slots:
     void on_pushButton_2_clicked();

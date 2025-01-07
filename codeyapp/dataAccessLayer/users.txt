@@ -1,4 +1,10 @@
-ani,123,Writerania,123,Reader
+ani,123,Writerania,133.00,Reader
 ani,123,Writer
 ania,123,Reader
 sop,sop,Reader
+iva,123,Writer,50.00
+iva,123,Writer,40.00
+iva,123,Writer,30.00
+iva,123,Writer,20.00
+iva,123,Writer,10.00
+iva,123,Writer,0.00

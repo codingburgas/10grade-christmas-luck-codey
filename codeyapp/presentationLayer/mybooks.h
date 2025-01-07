@@ -24,6 +24,7 @@ private:
     Ui::myBooks *ui;
 
     void loadRentedBooks(const QString &username);
+    void loadUserFunds(const QString &username);
 };
 
 #endif

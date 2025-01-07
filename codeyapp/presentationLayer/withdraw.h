@@ -14,6 +14,8 @@ class Withdraw : public QDialog
 public:
     explicit Withdraw(QWidget *parent = nullptr);
     ~Withdraw();
+    double getWithdrawAmount() const;
+    void onWithdrawButtonClicked();
 
 private:
     Ui::Withdraw *ui;
