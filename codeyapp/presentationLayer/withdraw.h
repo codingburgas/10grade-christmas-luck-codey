@@ -21,4 +21,4 @@ private:
     Ui::Withdraw *ui;
 };
 
-#endif // WITHDRAW_H
+#endif

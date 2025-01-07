@@ -89,8 +89,8 @@ void Dashboard::loadUserFunds()
         QString line = in.readLine();
         QStringList details = line.split(",");
 
-        if (details.size() >= 4 && details[0] == ui->label_7->text()) { // Match username
-            ui->label_funds->setText(QString("Funds: $%1").arg(details[3])); // Display funds
+        if (details.size() >= 4 && details[0] == ui->label_7->text()) {
+            ui->label_funds->setText(QString("Funds: $%1").arg(details[3]));
             break;
         }
     }
@@ -119,15 +119,15 @@ void Dashboard::updateBookDetails(const QString &title, const QString &author, c
         QStringList details = line.split(",");
 
         if (details.size() >= 6 && details[0] == title && details[1] == author && details[2] == genre) {
-            details[3] = renter;              // Update renter's username
-            details[5] = QString::number(daysLeft); // Update the daysLeft field
+            details[3] = renter;
+            details[5] = QString::number(daysLeft);
             bookFound = true;
         }
 
         updatedContent += details.join(",") + "\n";
     }
 
-    file.resize(0); // Clear the file before writing updated content
+    file.resize(0);
     QTextStream out(&file);
     out << updatedContent;
     file.close();
@@ -148,42 +148,46 @@ void Dashboard::loadBooks()
     }
 
     QTextStream in(&file);
+    ui->tableWidget->setColumnCount(5);
+    ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Status", "Price"});
+
     while (!in.atEnd()) {
         QString line = in.readLine();
         QStringList details = line.split(",");
 
-        if (details.size() >= 6) { // Ensure the file contains all fields, including daysLeft
+        if (details.size() >= 7) {
             int currentRow = ui->tableWidget->rowCount();
             ui->tableWidget->insertRow(currentRow);
 
-            ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(details[0])); // Title
-            ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(details[1])); // Author
-            ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(details[2])); // Genre
+            ui->tableWidget->setItem(currentRow, 0, new QTableWidgetItem(details[0]));
+            ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(details[1]));
+            ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(details[2]));
+            ui->tableWidget->setItem(currentRow, 4, new QTableWidgetItem(details[6]));
 
             QPushButton *statusButton = new QPushButton(this);
 
             if (details[3] == "Available") {
-                // If the book is available
                 statusButton->setText("Rent");
+
                 connect(statusButton, &QPushButton::clicked, [this, details]() {
-                    // Open the Rent dialog
+
                     Rent rentDialog(ui->label_7->text(), details[0], details[1], details[2], this);
                     if (rentDialog.exec() == QDialog::Accepted) {
-                        // Retrieve the days rented from Rent dialog
+
                         int daysRented = rentDialog.getDaysRented();
                         updateBookDetails(details[0], details[1], details[2], ui->label_7->text(), daysRented);
                     }
                 });
             } else if (details[3] == ui->label_7->text()) {
-                // If the book is rented by the current user
-                int daysLeft = details[5].toInt(); // Convert daysLeft to an integer
+
+                int daysLeft = details[5].toInt();
                 statusButton->setText(QString("Read, %1 days left").arg(daysLeft));
                 connect(statusButton, &QPushButton::clicked, [this, details]() {
                     class readBook readBookWindow(details[0], details[1], ui->label_7->text(), ui->label_8->text(), details[4], this);
                     readBookWindow.exec();
                 });
             } else {
-                // If the book is rented by another user
+
                 statusButton->setText("Unavailable");
                 statusButton->setDisabled(true);
             }
@@ -198,13 +202,12 @@ void Dashboard::loadBooks()
 
 void Dashboard::rentBook(const QString &title, const QString &author, const QString &genre, int row)
 {
-    // Open the Rent dialog
+
     Rent rentDialog(ui->label_7->text(), title, author, genre, this);
     if (rentDialog.exec() == QDialog::Accepted) {
-        // Get the number of days rented from the Rent dialog
+
         int daysRented = rentDialog.getDaysRented();
 
-        // Open the file to update the book details
         QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
         if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
             QMessageBox::critical(this, "Error", "Could not open books.txt for writing.");
@@ -218,12 +221,12 @@ void Dashboard::rentBook(const QString &title, const QString &author, const QStr
             QStringList details = line.split(",");
 
             if (details[0] == title && details[1] == author && details[2] == genre) {
-                // Update the renter's username and the days left
-                details[3] = ui->label_7->text();         // Update status to current user
+
+                details[3] = ui->label_7->text();
                 if (details.size() >= 6) {
-                    details[5] = QString::number(daysRented); // Update days left
+                    details[5] = QString::number(daysRented);
                 } else {
-                    details.append(QString::number(daysRented)); // Add days left if not present
+                    details.append(QString::number(daysRented));
                 }
                 updatedContent += details.join(",") + "\n";
             } else {
@@ -231,19 +234,16 @@ void Dashboard::rentBook(const QString &title, const QString &author, const QStr
             }
         }
 
-        // Rewrite the updated content to the file
         file.resize(0);
         QTextStream out(&file);
         out << updatedContent;
         file.close();
 
-        // Update the button text for the rented book
         QPushButton *button = qobject_cast<QPushButton *>(ui->tableWidget->cellWidget(row, 3));
         if (button) {
             button->setText(QString("Read, %1 days left").arg(daysRented));
             button->disconnect();
             connect(button, &QPushButton::clicked, [this, title, author, genre]() {
-                // Open the readBook window
                 class readBook readBookWindow(title, author, ui->label_7->text(), ui->label_8->text(), genre, this);
                 readBookWindow.exec();
             });
@@ -348,18 +348,17 @@ void Dashboard::on_pushButton_5_clicked()
                 QStringList details = line.split(",");
 
                 if (details.size() >= 4 && details[0] == ui->label_7->text()) {
-                    // Update the funds for the current user
+
                     double currentFunds = details[3].toDouble();
                     double depositAmount = depositDialog.getDepositAmount();
                     currentFunds += depositAmount;
 
-                    details[3] = QString::number(currentFunds, 'f', 2); // Update funds
+                    details[3] = QString::number(currentFunds, 'f', 2);
                 }
 
                 updatedContent += details.join(",") + "\n";
             }
 
-            // Rewrite the updated content to the file
             file.resize(0);
             QTextStream out(&file);
             out << updatedContent;
@@ -367,7 +366,6 @@ void Dashboard::on_pushButton_5_clicked()
 
             QMessageBox::information(this, "Success", QString("Deposited $%1 successfully!").arg(depositDialog.getDepositAmount()));
 
-            // Update the dashboard funds display
             loadUserFunds();
         } else {
             QMessageBox::critical(this, "Error", "Could not open users.txt for writing.");
@@ -377,7 +375,6 @@ void Dashboard::on_pushButton_5_clicked()
 
 void Dashboard::on_pushButton_6_clicked()
 {
-    // Create and show Withdraw as a modal dialog
     Withdraw withdrawDialog(this);
     if (withdrawDialog.exec() == QDialog::Accepted) {
         QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt");
@@ -390,7 +387,7 @@ void Dashboard::on_pushButton_6_clicked()
                 QStringList details = line.split(",");
 
                 if (details.size() >= 4 && details[0] == ui->label_7->text()) {
-                    // Update the funds for the current user
+
                     double currentFunds = details[3].toDouble();
                     double withdrawAmount = withdrawDialog.getWithdrawAmount();
 
@@ -401,13 +398,12 @@ void Dashboard::on_pushButton_6_clicked()
 
                     currentFunds -= withdrawAmount;
 
-                    details[3] = QString::number(currentFunds, 'f', 2); // Update funds
+                    details[3] = QString::number(currentFunds, 'f', 2);
                 }
 
                 updatedContent += details.join(",") + "\n";
             }
 
-            // Rewrite the updated content to the file
             file.resize(0);
             QTextStream out(&file);
             out << updatedContent;
@@ -415,7 +411,6 @@ void Dashboard::on_pushButton_6_clicked()
 
             QMessageBox::information(this, "Success", QString("Withdrew $%1 successfully!").arg(withdrawDialog.getWithdrawAmount()));
 
-            // Update the dashboard funds display
             loadUserFunds();
         } else {
             QMessageBox::critical(this, "Error", "Could not open users.txt for writing.");

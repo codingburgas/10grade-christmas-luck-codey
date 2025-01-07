@@ -28,7 +28,7 @@ myBooks::myBooks(const QString &username, const QString &role, QWidget *parent)
     ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Action"});
 
     loadRentedBooks(username);
-    loadUserFunds(username); // Load user funds
+    loadUserFunds(username);
 }
 
 myBooks::~myBooks()
@@ -82,9 +82,8 @@ void myBooks::loadUserFunds(const QString &username)
         QString line = in.readLine();
         QStringList details = line.split(",");
 
-        // Assuming file structure: username,password,role,funds
         if (details.size() >= 4 && details[0] == username) {
-            ui->label_5->setText(QString("%1 BGN").arg(details[3])); // Display funds
+            ui->label_5->setText(QString("%1 BGN").arg(details[3]));
             break;
         }
     }

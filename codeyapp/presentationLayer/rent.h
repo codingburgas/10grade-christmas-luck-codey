@@ -18,15 +18,15 @@ public:
     int getDaysRented() const;
 
 private slots:
-    void onRentButtonClicked(); // Declare the slot for the rent button
+    void onRentButtonClicked();
 
 private:
     Ui::Rent *ui;
     QString username;
-    QString bookTitle; // To store the book title
-    QString bookAuthor; // To store the book author
-    QString bookGenre; // To store the book genre
+    QString bookTitle;
+    QString bookAuthor;
+    QString bookGenre;
     int daysRented;
 };
 
-#endif // RENT_H
+#endif

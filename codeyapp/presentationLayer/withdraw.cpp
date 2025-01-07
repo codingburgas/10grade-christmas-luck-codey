@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QDebug>
 
 Withdraw::Withdraw(QWidget *parent)
     : QDialog(parent)
@@ -11,7 +12,6 @@ Withdraw::Withdraw(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Connect the withdraw button to the slot
     connect(ui->pushButton, &QPushButton::clicked, this, &Withdraw::onWithdrawButtonClicked);
 }
 
@@ -22,7 +22,7 @@ Withdraw::~Withdraw()
 
 double Withdraw::getWithdrawAmount() const
 {
-    return ui->lineEdit->text().toDouble(); // Assuming `lineEdit` is the input field for the withdrawal amount
+    return ui->lineEdit->text().toDouble();
 }
 
 void Withdraw::onWithdrawButtonClicked()
@@ -44,11 +44,20 @@ void Withdraw::onWithdrawButtonClicked()
     QString updatedContent;
     bool userFound = false;
 
+    Dashboard *dashboard = qobject_cast<Dashboard *>(parent());
+    if (!dashboard) {
+        QMessageBox::critical(this, "Error", "Dashboard not found. Unable to complete withdrawal.");
+        file.close();
+        return;
+    }
+
+    QString username = dashboard->getUsername();
+
     while (!stream.atEnd()) {
         QString line = stream.readLine();
         QStringList details = line.split(",");
 
-        if (details.size() >= 4 && details[0] == qobject_cast<Dashboard *>(parent())->getUsername()) {
+        if (details.size() >= 4 && details[0] == username) {
             double currentFunds = details[3].toDouble();
 
             if (currentFunds >= withdrawAmount) {
@@ -60,9 +69,13 @@ void Withdraw::onWithdrawButtonClicked()
                 file.close();
                 return;
             }
-        }
 
-        updatedContent += details.join(",") + "\n";
+            updatedContent += details.join(",") + "\n";
+            break;
+        } else {
+
+            updatedContent += line + "\n";
+        }
     }
 
     file.resize(0);
@@ -72,7 +85,6 @@ void Withdraw::onWithdrawButtonClicked()
 
     if (userFound) {
         QMessageBox::information(this, "Success", QString("Withdrew $%1 successfully!").arg(withdrawAmount));
-        Dashboard *dashboard = qobject_cast<Dashboard *>(parent());
         if (dashboard) {
             dashboard->loadUserFunds();
         }

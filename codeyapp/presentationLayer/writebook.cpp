@@ -34,19 +34,28 @@ void writeBook::on_writeButton_clicked()
 {
     QString title = ui->titleInput->text();
     QString genre = ui->genreInput->text();
+    QString priceStr = ui->genreInput_2->text();
     QString content = ui->contentInput->toPlainText();
     QString status = "Available";
-    QString daysLeft = "0"; // Default value for books that are not rented
+    QString daysLeft = "0";
 
-    if (title.isEmpty() || genre.isEmpty() || content.isEmpty()) {
+    if (title.isEmpty() || genre.isEmpty() || priceStr.isEmpty() || content.isEmpty()) {
         QMessageBox::warning(this, "Missing Information", "Please fill out all fields.");
+        return;
+    }
+
+    bool isNumber;
+    double price = priceStr.toDouble(&isNumber);
+
+    if (!isNumber || price <= 0) {
+        QMessageBox::warning(this, "Invalid Price", "Please enter a valid positive number for the price.");
         return;
     }
 
     QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
-        out << title << "," << currentAuthor << "," << genre << "," << status << "," << content << "," << daysLeft << "\n";
+        out << title << "," << currentAuthor << "," << genre << "," << status << "," << content << "," << daysLeft << "," << price << "\n";
         file.close();
 
         emit bookAdded(title, currentAuthor, genre, status);

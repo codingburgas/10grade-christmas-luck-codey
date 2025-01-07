@@ -15,12 +15,10 @@ Rent::Rent(const QString &user, const QString &title, const QString &author, con
 {
     ui->setupUi(this);
 
-    // Set book details in labels
     ui->label_3->setText(title);
     ui->label_5->setText(author);
     ui->label_6->setText(genre);
 
-    // Connect the rent button
     connect(ui->pushButton, &QPushButton::clicked, this, &Rent::onRentButtonClicked);
 }
 
@@ -43,37 +41,98 @@ void Rent::onRentButtonClicked()
 
     int rentDays = rentDaysStr.toInt();
 
-    QFile file("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
-    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        QMessageBox::critical(this, "Error", "Could not open books file for writing.");
+    double bookPrice = 0.0;
+    QFile bookFile("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/books.txt");
+    if (!bookFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "Could not open books file for reading.");
         return;
     }
 
-    QTextStream stream(&file);
-    QString updatedContent;
+    QTextStream bookStream(&bookFile);
     bool bookFound = false;
 
-    while (!stream.atEnd()) {
-        QString line = stream.readLine();
+    while (!bookStream.atEnd()) {
+        QString line = bookStream.readLine();
         QStringList details = line.split(",");
 
-        if (details.size() >= 6 && details[0] == bookTitle && details[1] == bookAuthor && details[2] == bookGenre) {
-            details[3] = username;                  // Update the renter
-            details[5] = QString::number(rentDays); // Update the days left
+        if (details.size() >= 7 && details[0] == bookTitle && details[1] == bookAuthor && details[2] == bookGenre) {
+            bookPrice = details[6].toDouble();
             bookFound = true;
+            break;
         }
+    }
+    bookFile.close();
 
-        updatedContent += details.join(",") + "\n";
+    if (!bookFound) {
+        QMessageBox::critical(this, "Error", "Book not found in the database.");
+        return;
     }
 
-    file.resize(0);
-    stream << updatedContent;
-    file.close();
+    qDebug() << "Book price: " << bookPrice;
 
-    if (bookFound) {
-        this->daysRented = rentDays; // Store the rental days
-        accept();                    // Close the dialog with QDialog::Accepted
-    } else {
-        QMessageBox::critical(this, "Error", "Book not found in the database.");
+    QFile userFile("/Users/ani/Documents/School/10grade-christmas-luck-codey/codeyapp/dataAccessLayer/users.txt");
+    if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "Could not open users file for updating.");
+        return;
+    }
+
+    QTextStream userStream(&userFile);
+    QString updatedUserContent;
+    bool sufficientFunds = false;
+
+    while (!userStream.atEnd()) {
+        QString line = userStream.readLine();
+        QStringList details = line.split(",");
+
+        if (details.size() >= 4 && details[0] == username && !sufficientFunds) {
+            double userFunds = details[3].toDouble();
+            qDebug() << "User funds: " << userFunds;
+
+            if (userFunds >= bookPrice) {
+                userFunds -= bookPrice;
+                details[3] = QString::number(userFunds);
+                sufficientFunds = true;
+            } else {
+                QMessageBox::warning(this, "Insufficient Funds", "You do not have enough funds to rent this book.");
+                userFile.close();
+                return;
+            }
+        }
+        updatedUserContent += details.join(",") + "\n";
+    }
+
+    userFile.resize(0);
+    QTextStream userOut(&userFile);
+    userOut << updatedUserContent;
+    userFile.close();
+
+    if (sufficientFunds) {
+
+        if (!bookFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
+            QMessageBox::critical(this, "Error", "Could not open books file for updating.");
+            return;
+        }
+
+        QTextStream bookStream(&bookFile);
+        QString updatedBookContent;
+
+        while (!bookStream.atEnd()) {
+            QString line = bookStream.readLine();
+            QStringList details = line.split(",");
+
+            if (details.size() >= 7 && details[0] == bookTitle && details[1] == bookAuthor && details[2] == bookGenre) {
+                details[3] = username;
+                details[5] = QString::number(rentDays);
+            }
+            updatedBookContent += details.join(",") + "\n";
+        }
+
+        bookFile.resize(0);
+        QTextStream bookOut(&bookFile);
+        bookOut << updatedBookContent;
+        bookFile.close();
+
+        QMessageBox::information(this, "Success", "Book rented successfully!");
+        accept();
     }
 }

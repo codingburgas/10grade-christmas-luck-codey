@@ -11,3 +11,7 @@ erg,ani,erb,ani,sdzf,0
 rev,ani,erv,ani,erv,0
 3rv,ani,ev,ani,ev,0
 wr,ani,ebrf,ani,erb,3
+wv,iva,sv,iva,erwb,1,10
+evsxbuuk,iva,ukd,iva,ddjsr,1,10
+weweg,ижа,wegwe,ижа,sfb,1,10
+we,ижа,wev,Available,etn,0,2

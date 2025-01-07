@@ -35,7 +35,6 @@ void authWindow::on_pushButton_clicked()
             QString line = in.readLine();
             QStringList details = line.split(",");
 
-            // Check if the record has at least 3 fields (username, password, role)
             if (details.size() >= 3) {
                 if (details[0] == username) {
                     usernameExists = true;
@@ -51,7 +50,6 @@ void authWindow::on_pushButton_clicked()
         file.close();
 
         if (credentialsMatch) {
-            // Successful login
             this->hide();
             Dashboard dashboard(username, role);
             dashboard.setModal(true);
@@ -59,14 +57,12 @@ void authWindow::on_pushButton_clicked()
             this->close();
 
         } else if (usernameExists) {
-            // Username exists but credentials are incorrect
             QMessageBox::warning(this, "Login Failed", "Incorrect password or role. Please try again.");
 
         } else {
-            // Create a new account if username doesn't exist
             if (file.open(QIODevice::Append | QIODevice::Text)) {
                 QTextStream out(&file);
-                out << username << "," << password << "," << role << ",0\n"; // Add default funds = 0
+                out << username << "," << password << "," << role << ",0\n";
                 file.close();
 
                 QMessageBox::information(this, "Account Created", "New account created. Proceeding to dashboard.");

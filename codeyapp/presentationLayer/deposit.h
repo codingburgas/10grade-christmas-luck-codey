@@ -23,4 +23,4 @@ private:
     Ui::Deposit *ui;
 };
 
-#endif // DEPOSIT_H
+#endif

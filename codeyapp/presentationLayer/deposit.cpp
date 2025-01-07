@@ -1,4 +1,3 @@
-// deposit.cpp
 #include "deposit.h"
 #include "ui_deposit.h"
 #include "dashboard.h"
@@ -12,7 +11,6 @@ Deposit::Deposit(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Connect the deposit button to the slot
     connect(ui->pushButton, &QPushButton::clicked, this, &Deposit::onDepositButtonClicked);
 }
 
