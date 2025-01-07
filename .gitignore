@@ -1,5 +1,6 @@
 # Prerequisites
 *.d
+"documents/Doxygen Documentation/latex/"
 
 # Compiled Object files
 *.slo
