@@ -52,7 +52,7 @@ void writeBook::on_writeButton_clicked()
         return;
     }
 
-    QFile file("../../../../../dataAccessLayer/books.txt");
+    QFile file("../../dataAccessLayer/books.txt");
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
         out << title << "," << currentAuthor << "," << genre << "," << status << "," << content << "," << daysLeft << "," << price << "\n";

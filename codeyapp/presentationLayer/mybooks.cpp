@@ -40,7 +40,7 @@ myBooks::~myBooks()
 
 void myBooks::returnBook(const QString &title, const QString &author, const QString &genre, int row)
 {
-    QFile bookFile("../../../../../dataAccessLayer/books.txt");
+    QFile bookFile("../../dataAccessLayer/books.txt");
     if (!bookFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for updating.");
         return;
@@ -75,7 +75,7 @@ void myBooks::returnBook(const QString &title, const QString &author, const QStr
 
     if (bookReturned) {
         if (isOverdue) {
-            QFile userFile("../../../../../dataAccessLayer/users.txt");
+            QFile userFile("../../dataAccessLayer/users.txt");
             if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
                 QMessageBox::critical(this, "Error", "Could not open users.txt for updating.");
                 return;
@@ -117,7 +117,7 @@ void myBooks::returnBook(const QString &title, const QString &author, const QStr
 
 void myBooks::loadRentedBooks(const QString &username)
 {
-    QFile file("../../../../../dataAccessLayer/books.txt");
+    QFile file("../../dataAccessLayer/books.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for reading.");
         return;
@@ -163,7 +163,7 @@ void myBooks::loadRentedBooks(const QString &username)
 
 void myBooks::loadUserFunds(const QString &username)
 {
-    QFile file("../../../../../dataAccessLayer/users.txt");
+    QFile file("../../dataAccessLayer/users.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users.txt for reading.");
         return;

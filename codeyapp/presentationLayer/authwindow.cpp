@@ -8,7 +8,7 @@
 authWindow::authWindow(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::authWindow)
-    , db(new Database("../../../../../dataAccessLayer/users.txt"))
+    , db(new Database("../../dataAccessLayer/users.txt"))
 {
     ui->setupUi(this);
 }
@@ -26,7 +26,7 @@ void authWindow::on_pushButton_clicked()
     QString role = ui->comboBox->currentText();
 
 //#ifdef __APPLE__
-    QFile file("../../../../../dataAccessLayer/users.txt");
+    QFile file("../../dataAccessLayer/users.txt");
 //#endif
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {

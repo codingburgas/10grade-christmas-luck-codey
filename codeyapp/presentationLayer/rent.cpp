@@ -44,7 +44,7 @@ void Rent::onRentButtonClicked()
 
     double bookPrice = 0.0;
     QString author;
-    QFile bookFile("../../../../../dataAccessLayer/books.txt");
+    QFile bookFile("../../dataAccessLayer/books.txt");
     if (!bookFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books file for reading.");
         return;
@@ -71,7 +71,7 @@ void Rent::onRentButtonClicked()
         return;
     }
 
-    QFile userFile("../../../../../dataAccessLayer/users.txt");
+    QFile userFile("../../dataAccessLayer/users.txt");
     if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users file for updating.");
         return;

@@ -1,5 +1,3 @@
 ani,123,Writerania,100.00,Reader
-iva,123,Writer,1030
+iva,123,Writer,697969
 sop,123,Reader,0
-IVA,123,Writer,0
-wop,123,Reader,0
