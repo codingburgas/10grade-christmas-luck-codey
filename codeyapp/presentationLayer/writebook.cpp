@@ -52,7 +52,13 @@ void writeBook::on_writeButton_clicked()
         return;
     }
 
-    QFile file("../../dataAccessLayer/books.txt");
+    #ifdef __APPLE__
+        QFile file("../../../../../dataAccessLayer/books.txt");
+    #elif _WIN64
+        QFile file("../../dataAccessLayer/books.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
         out << title << "," << currentAuthor << "," << genre << "," << status << "," << content << "," << daysLeft << "," << price << "\n";

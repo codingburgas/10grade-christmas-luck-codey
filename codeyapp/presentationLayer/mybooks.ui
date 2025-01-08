@@ -202,7 +202,7 @@ color: transparent;</string>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>50</x>
       <y>0</y>
       <width>151</width>
       <height>41</height>
@@ -219,7 +219,7 @@ font: 700 18pt &quot;Segoe UI&quot;;</string>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>50</x>
       <y>40</y>
       <width>191</width>
       <height>31</height>
@@ -318,6 +318,27 @@ color: black;</string>
     </property>
     <property name="text">
      <string>0 BGN</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sortButton">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>20</y>
+      <width>61</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #F5F5F5;
+border-radius: 12px;
+color: black;</string>
+    </property>
+    <property name="text">
+     <string>Sort</string>
     </property>
    </widget>
   </widget>

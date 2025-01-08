@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "dataAccessLayer/database.h"
 #include <QStandardItemModel>
+#include <QTableWidget>
 
 class readBook;
 

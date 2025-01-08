@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include "readbook.h"
 #include <QDate>
+#include "QTableWidget"
 
 myBooks::myBooks(const QString &username, const QString &role, QWidget *parent)
     : QDialog(parent)
@@ -30,6 +31,9 @@ myBooks::myBooks(const QString &username, const QString &role, QWidget *parent)
 
     loadRentedBooks(username);
     loadUserFunds(username);
+    connect(ui->sortButton, &QPushButton::clicked, [this]() {
+        sortMyBooks(0);
+    });
 }
 
 myBooks::~myBooks()
@@ -37,10 +41,57 @@ myBooks::~myBooks()
     delete ui;
 }
 
+void myBooks::sortMyBooks(int columnIndex) {
+    QList<QPair<QString, QList<QTableWidgetItem*>>> rows;
+
+    for (int row = 0; row < ui->tableWidget->rowCount(); ++row) {
+        QList<QTableWidgetItem*> items;
+        for (int col = 0; col < ui->tableWidget->columnCount(); ++col) {
+            items.append(ui->tableWidget->takeItem(row, col));
+        }
+
+        QString key = items[columnIndex] ? items[columnIndex]->text() : "";
+        rows.append(qMakePair(key, items));
+    }
+
+    std::sort(rows.begin(), rows.end(), [](const QPair<QString, QList<QTableWidgetItem*>>& a, const QPair<QString, QList<QTableWidgetItem*>>& b) {
+        return a.first.toLower() < b.first.toLower();
+    });
+
+    ui->tableWidget->setRowCount(0);
+
+    for (const auto& row : rows) {
+        int newRow = ui->tableWidget->rowCount();
+        ui->tableWidget->insertRow(newRow);
+
+        for (int col = 0; col < row.second.size(); ++col) {
+            ui->tableWidget->setItem(newRow, col, row.second[col]);
+        }
+
+        QWidget* buttonWidget = new QWidget(this);
+        QHBoxLayout* layout = new QHBoxLayout(buttonWidget);
+
+        QPushButton* readButton = new QPushButton("Read", this);
+        QPushButton* returnButton = new QPushButton("Return", this);
+
+        layout->addWidget(readButton);
+        layout->addWidget(returnButton);
+        layout->setContentsMargins(0, 0, 0, 0);
+        buttonWidget->setLayout(layout);
+
+        ui->tableWidget->setCellWidget(newRow, 3, buttonWidget);
+    }
+}
 
 void myBooks::returnBook(const QString &title, const QString &author, const QString &genre, int row)
 {
-    QFile bookFile("../../dataAccessLayer/books.txt");
+    #ifdef __APPLE__
+        QFile bookFile("../../../../../dataAccessLayer/books.txt");
+    #elif _WIN64
+        QFile bookFile("../../dataAccessLayer/books.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
     if (!bookFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for updating.");
         return;
@@ -75,7 +126,13 @@ void myBooks::returnBook(const QString &title, const QString &author, const QStr
 
     if (bookReturned) {
         if (isOverdue) {
-            QFile userFile("../../dataAccessLayer/users.txt");
+            #ifdef __APPLE__
+                        QFile userFile("../../../../../dataAccessLayer/users.txt");
+            #elif _WIN64
+                        QFile userFile("../../dataAccessLayer/users.txt");
+            #else
+            #error "Unsupported platform"
+            #endif
             if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
                 QMessageBox::critical(this, "Error", "Could not open users.txt for updating.");
                 return;
@@ -117,7 +174,13 @@ void myBooks::returnBook(const QString &title, const QString &author, const QStr
 
 void myBooks::loadRentedBooks(const QString &username)
 {
-    QFile file("../../dataAccessLayer/books.txt");
+    #ifdef __APPLE__
+        QFile file("../../../../../dataAccessLayer/books.txt");
+    #elif _WIN64
+        QFile file("../../dataAccessLayer/books.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for reading.");
         return;
@@ -163,7 +226,13 @@ void myBooks::loadRentedBooks(const QString &username)
 
 void myBooks::loadUserFunds(const QString &username)
 {
-    QFile file("../../dataAccessLayer/users.txt");
+    #ifdef __APPLE__
+        QFile file("../../../../../dataAccessLayer/users.txt");
+    #elif _WIN64
+        QFile file("../../dataAccessLayer/users.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users.txt for reading.");
         return;
@@ -211,3 +280,4 @@ void myBooks::on_searchButton_clicked()
     QString searchText = ui->searchBar->text();
     recursiveSearch(0, searchText);
 }
+

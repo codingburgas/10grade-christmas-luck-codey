@@ -34,7 +34,13 @@ void Withdraw::onWithdrawButtonClicked()
     }
 
     double withdrawAmount = withdrawAmountStr.toDouble();
-    QFile file("../../dataAccessLayer/users.txt");
+    #ifdef __APPLE__
+        QFile file("../../../../../dataAccessLayer/users.txt");
+    #elif _WIN64
+        QFile file("../../dataAccessLayer/users.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users.txt for writing.");
         return;

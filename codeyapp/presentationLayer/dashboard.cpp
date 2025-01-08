@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <readbook.h>
 #include <rent.h>
+#include "QTableWidget"
 
 Dashboard::Dashboard(QWidget *parent)
     : QDialog(parent)
@@ -76,9 +77,16 @@ Dashboard::~Dashboard()
     delete ui;
 }
 
+
 void Dashboard::loadUserFunds()
 {
-    QFile file("../../dataAccessLayer/users.txt");
+    #ifdef __APPLE__
+        QFile file("../../../../../dataAccessLayer/users.txt");
+    #elif _WIN64
+        QFile file("../../dataAccessLayer/users.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users.txt for reading.");
         return;
@@ -104,7 +112,13 @@ QString Dashboard::getUsername() const {
 
 void Dashboard::updateBookDetails(const QString &title, const QString &author, const QString &genre, const QString &renter, int daysLeft)
 {
-    QFile file("../../dataAccessLayer/books.txt");
+    #ifdef __APPLE__
+        QFile file("../../../../../dataAccessLayer/books.txt");
+    #elif _WIN64
+        QFile file("../../dataAccessLayer/books.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for writing.");
         return;
@@ -141,7 +155,13 @@ void Dashboard::updateBookDetails(const QString &title, const QString &author, c
 
 void Dashboard::loadBooks()
 {
-    QFile file("../../dataAccessLayer/books.txt");
+    #ifdef __APPLE__
+        QFile file("../../../../../dataAccessLayer/books.txt");
+    #elif _WIN64
+        QFile file("../../dataAccessLayer/books.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << "Could not open books.txt for reading.";
         return;
@@ -208,7 +228,13 @@ void Dashboard::rentBook(const QString &title, const QString &author, const QStr
 
         int daysRented = rentDialog.getDaysRented();
 
-        QFile file("../../dataAccessLayer/books.txt");
+        #ifdef __APPLE__
+                QFile file("../../../../../dataAccessLayer/books.txt");
+        #elif _WIN64
+                QFile file("../../dataAccessLayer/books.txt");
+        #else
+        #error "Unsupported platform"
+        #endif
         if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
             QMessageBox::critical(this, "Error", "Could not open books.txt for writing.");
             return;
@@ -344,7 +370,13 @@ void Dashboard::on_pushButton_5_clicked()
 {
     Deposit depositDialog(this);
     if (depositDialog.exec() == QDialog::Accepted) {
-        QFile file("../../dataAccessLayer/users.txt");
+        #ifdef __APPLE__
+                QFile file("../../../../../dataAccessLayer/users.txt");
+        #elif _WIN64
+                QFile file("../../dataAccessLayer/users.txt");
+        #else
+        #error "Unsupported platform"
+        #endif
         if (file.open(QIODevice::ReadWrite | QIODevice::Text)) {
             QString updatedContent;
             QTextStream in(&file);
@@ -383,7 +415,13 @@ void Dashboard::on_pushButton_6_clicked()
 {
     Withdraw withdrawDialog(this);
     if (withdrawDialog.exec() == QDialog::Accepted) {
-        QFile file("../../dataAccessLayer/users.txt");
+        #ifdef __APPLE__
+                QFile file("../../../../../dataAccessLayer/users.txt");
+        #elif _WIN64
+                QFile file("../../dataAccessLayer/users.txt");
+        #else
+        #error "Unsupported platform"
+        #endif
         if (file.open(QIODevice::ReadWrite | QIODevice::Text)) {
             QString updatedContent;
             QTextStream in(&file);
@@ -423,4 +461,5 @@ void Dashboard::on_pushButton_6_clicked()
         }
     }
 }
+
 

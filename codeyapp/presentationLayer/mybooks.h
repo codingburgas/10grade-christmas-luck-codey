@@ -2,6 +2,7 @@
 #define MYBOOKS_H
 
 #include <QDialog>
+#include <QTableWidget>
 
 class readBook;
 
@@ -29,6 +30,7 @@ private:
     void recursiveSearch(int row, const QString &searchText);
     void returnBook(const QString &title, const QString &author, const QString &genre, int row);
     void fineUser(const QString &username, int fineAmount);
+    void sortMyBooks(int titleColumnIndex);
 };
 
 #endif

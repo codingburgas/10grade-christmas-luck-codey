@@ -44,7 +44,13 @@ void Rent::onRentButtonClicked()
 
     double bookPrice = 0.0;
     QString author;
-    QFile bookFile("../../dataAccessLayer/books.txt");
+    #ifdef __APPLE__
+        QFile bookFile("../../../../../dataAccessLayer/books.txt");
+    #elif _WIN64
+        QFile bookFile("../../dataAccessLayer/books.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
     if (!bookFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books file for reading.");
         return;
@@ -71,7 +77,13 @@ void Rent::onRentButtonClicked()
         return;
     }
 
-    QFile userFile("../../dataAccessLayer/users.txt");
+    #ifdef __APPLE__
+        QFile userFile("../../../../../dataAccessLayer/users.txt");
+    #elif _WIN64
+        QFile userFile("../../dataAccessLayer/users.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
     if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users file for updating.");
         return;
