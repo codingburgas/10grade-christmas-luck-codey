@@ -38,14 +38,7 @@
 ## Codey as a Reader 👓
 ### There they can see the table with written stories that they can read. After picking one, they should click the button 'Rent' and choose for what time they need to borrow it. Readers can see every book they have rented in the 'My books' window.
 # 🌐 Website
-### In our website, users can learn more information about our application. As it is not currently hosted, you will need to run it manually. Here are the steps to do so:
-### First we clone the repository
-<pre>git clone https://github.com/codingburgas/10grade-christmas-luck-codey.git</pre>
-
-### After cloning our repository, open the 'codeyweb' folder in Visual Studio and type the following command in the terminal.
-<pre>npm install</pre>
-### And then
-<pre>npm run dev</pre>
+### In our website, users can learn more information about our application. As it is currently hosted, you can click <a href="https://idraykova22.github.io/Codey-Website/">here <a/> to open it.
 # 🔌 Application
 ### Our application doesn't have a release yet so you will need to download and run it manually.
 ### First we clone the repository 
