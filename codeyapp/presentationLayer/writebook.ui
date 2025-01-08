@@ -14,7 +14,7 @@
    <string>Write a book</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: #F5F5F5;</string>
+   <string notr="true"/>
   </property>
   <widget class="QFrame" name="frame">
    <property name="geometry">
@@ -26,7 +26,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: white;
+    <string notr="true">
 border-radius: 4px;</string>
    </property>
    <property name="frameShape">
@@ -64,7 +64,7 @@ border-radius: 4px;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: black;
+     <string notr="true">
 font: 700 25pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -81,7 +81,7 @@ font: 700 25pt &quot;Segoe UI&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">
 font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -98,7 +98,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">
 font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -117,7 +117,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="styleSheet">
      <string notr="true">border-radius: 8px;
 border: 0.5px solid rgb(62, 62, 62);
-background: #FAFAFA;</string>
+</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="genreInput">
@@ -132,7 +132,7 @@ background: #FAFAFA;</string>
     <property name="styleSheet">
      <string notr="true">border-radius: 8px;
 border: 0.5px solid rgb(62, 62, 62);
-background: #FAFAFA;</string>
+</string>
     </property>
    </widget>
    <widget class="QLabel" name="contentLabel">
@@ -145,7 +145,7 @@ background: #FAFAFA;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">
 font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -167,7 +167,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="styleSheet">
      <string notr="true">border-radius: 8px;
 border: 0.5px solid rgb(62, 62, 62);
-background: #FAFAFA;</string>
+</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="genreInput_2">
@@ -181,8 +181,7 @@ background: #FAFAFA;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 8px;
-border: 0.5px solid rgb(62, 62, 62);
-background: #FAFAFA;</string>
+border: 0.5px solid rgb(62, 62, 62);</string>
     </property>
    </widget>
    <widget class="QLabel" name="genreLabel_2">
@@ -195,7 +194,7 @@ background: #FAFAFA;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">
 font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -230,7 +229,7 @@ font: 300 11pt &quot;Segoe UI&quot;;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(0, 0, 0);
+    <string notr="true">
 font: 700 15pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="text">

@@ -22,6 +22,8 @@ private slots:
 private:
     Ui::authWindow *ui;
     Database *db;
+
+    bool isDarkTheme = false;
 };
 
 #endif

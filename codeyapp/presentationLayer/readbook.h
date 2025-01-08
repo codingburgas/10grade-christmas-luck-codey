@@ -16,7 +16,7 @@ public:
     ~readBook();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_myBooksBTN_clicked();
 
 private:
     Ui::readBook *ui;

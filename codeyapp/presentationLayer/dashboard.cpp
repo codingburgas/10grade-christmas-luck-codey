@@ -463,3 +463,22 @@ void Dashboard::on_pushButton_6_clicked()
 }
 
 
+
+void Dashboard::on_modes_clicked()
+{
+    static bool isLightMode = true;
+
+    QString qssFilePath = isLightMode ? ":/styles/dark.qss" : ":/styles/light.qss";
+    QFile file(qssFilePath);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", QString("Could not open %1").arg(qssFilePath));
+        return;
+    }
+
+    QString styleSheet = file.readAll();
+    qApp->setStyleSheet(styleSheet);
+    file.close();
+
+    isLightMode = !isLightMode;
+}

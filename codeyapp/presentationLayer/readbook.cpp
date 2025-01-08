@@ -17,7 +17,7 @@ readBook::readBook(const QString &bookTitle, const QString &author, const QStrin
     ui->contentInput->setFocus();
 
 
-    connect(ui->pushButton, &QPushButton::clicked, this, &readBook::on_pushButton_clicked);
+    connect(ui->myBooksBTN, &QPushButton::clicked, this, &readBook::on_myBooksBTN_clicked);
 }
 
 readBook::~readBook()
@@ -25,7 +25,7 @@ readBook::~readBook()
     delete ui;
 }
 
-void readBook::on_pushButton_clicked()
+void readBook::on_myBooksBTN_clicked()
 {
     this->close();
 

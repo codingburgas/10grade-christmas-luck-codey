@@ -1,0 +1,26 @@
+QDialog{
+background-color: rgb(245, 245, 245);
+}
+
+QFrame{
+background-color: rgb(255, 255, 255);
+}
+
+QLabel{
+color: black;
+background-color: transparent;
+}
+
+QLineEdit{
+background-color: #F5F5F5;
+}
+
+QTableWidget{
+background-color: rgb(255, 255, 255);
+color: black;
+}
+
+QPushButton#myBooksBTN{
+background-color: #FFFFFF;
+color: black;
+}

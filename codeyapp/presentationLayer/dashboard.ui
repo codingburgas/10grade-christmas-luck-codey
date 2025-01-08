@@ -14,7 +14,7 @@
    <string>Dashboard</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(245, 245, 245);</string>
+   <string notr="true"/>
   </property>
   <widget class="QFrame" name="frame">
    <property name="geometry">
@@ -26,7 +26,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::Shape::StyledPanel</enum>
@@ -42,6 +42,9 @@
       <width>72</width>
       <height>72</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;</string>
     </property>
     <property name="text">
      <string/>
@@ -60,7 +63,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">background-color: transparent;
 font: 16pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -93,7 +96,7 @@ font: 16pt &quot;Segoe UI&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">
 font: 600 11pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -170,7 +173,7 @@ color: transparent;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">
 font: 600 11pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -203,7 +206,7 @@ font: 600 11pt &quot;Segoe UI&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">
 font: 600 11pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -268,7 +271,7 @@ font: 600 11pt &quot;Segoe UI&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">
 font: 600 11pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -285,7 +288,7 @@ font: 600 11pt &quot;Segoe UI&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">
 font: 600 11pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -332,6 +335,42 @@ background-color: transparent;</string>
      <string>PushButton</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="modes">
+    <property name="geometry">
+     <rect>
+      <x>69</x>
+      <y>590</y>
+      <width>101</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;
+color: transparent;</string>
+    </property>
+    <property name="text">
+     <string>Switch</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>590</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 600 11pt &quot;Segoe UI&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Switch modes</string>
+    </property>
+   </widget>
    <zorder>label_libraryIcon</zorder>
    <zorder>label_4</zorder>
    <zorder>label_books</zorder>
@@ -349,6 +388,8 @@ background-color: transparent;</string>
    <zorder>label_11</zorder>
    <zorder>pushButton_5</zorder>
    <zorder>pushButton_6</zorder>
+   <zorder>label_9</zorder>
+   <zorder>modes</zorder>
   </widget>
   <widget class="QFrame" name="frame_2">
    <property name="geometry">
@@ -360,7 +401,7 @@ background-color: transparent;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::Shape::StyledPanel</enum>
@@ -378,7 +419,7 @@ background-color: transparent;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">background-color: transparent;
 font: 700 18pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -395,7 +436,7 @@ font: 700 18pt &quot;Segoe UI&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(116, 118, 129);
+     <string notr="true">
 font: 300 11pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -415,7 +456,7 @@ font: 300 11pt &quot;Segoe UI&quot;;</string>
      <enum>Qt::LayoutDirection::RightToLeft</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
+     <string notr="true">
    font: 700 15pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -432,7 +473,7 @@ font: 300 11pt &quot;Segoe UI&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(116, 118, 129);
+     <string notr="true">
 font: 300 11pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
@@ -487,6 +528,9 @@ color: black;</string>
     <property name="layoutDirection">
      <enum>Qt::LayoutDirection::RightToLeft</enum>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="text">
      <string>0 BGN</string>
     </property>
@@ -527,7 +571,7 @@ color: black;</string>
     <string/>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: #ffffff;</string>
+    <string notr="true">background-color: transparent;</string>
    </property>
    <property name="editTriggers">
     <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
@@ -541,6 +585,13 @@ color: black;</string>
    <column>
     <property name="text">
      <string>Title</string>
+    </property>
+    <property name="background">
+     <color>
+      <red>67</red>
+      <green>67</green>
+      <blue>67</blue>
+     </color>
     </property>
    </column>
    <column>

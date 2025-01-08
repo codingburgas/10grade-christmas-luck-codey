@@ -1,0 +1,52 @@
+QDialog{
+background-color: #121212;
+}
+
+QFrame{
+background-color: #1D1D1D;
+}
+
+QLabel{
+background-color: transparent;
+color: white;
+}
+
+QLineEdit{
+background-color: #121212;
+}
+
+QTableWidget{
+background-color: #1D1D1D;
+color: white;
+}
+
+QScrollArea{
+color: white;
+background-color: #1D1D1D;
+}
+
+QWidget#scrollAreaWidgetContents{
+color: white;
+background-color: #1D1D1D;
+}
+
+QLabel#contentInput{
+color: white;
+background-color: #1D1D1D;
+}
+
+
+QTextEdit{
+color: white;
+background-color: #1D1D1D;
+}
+
+QScrollArea{
+color: white;
+background-color: #1D1D1D;
+}
+
+QPushButton#myBooksBTN{
+background-color: #1D1D1D;
+color: white;
+}

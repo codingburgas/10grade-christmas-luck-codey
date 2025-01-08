@@ -13,5 +13,7 @@
         <file>dataAccessLayer/books.txt</file>
         <file>assets/images/depositIcon.png</file>
         <file>assets/images/withdrawIcon.png</file>
+        <file>styles/dark.qss</file>
+        <file>styles/light.qss</file>
     </qresource>
 </RCC>

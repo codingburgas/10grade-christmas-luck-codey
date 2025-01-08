@@ -304,7 +304,7 @@ void myBooks::loadUserFunds(const QString &username)
         QStringList details = line.split(",");
 
         if (details.size() >= 4 && details[0] == username) {
-            ui->label_5->setText(QString("%1 BGN").arg(details[3]));
+            ui->label_5->setText(QString("Funds: $%1").arg(details[3]));
             break;
         }
     }

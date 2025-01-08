@@ -23,8 +23,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(0, 0, 0);
-font: 700 15pt &quot;Segoe UI&quot;;</string>
+    <string notr="true">font: 700 15pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="text">
     <string>Iva Raykova</string>
@@ -40,14 +39,14 @@ font: 700 15pt &quot;Segoe UI&quot;;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(116, 118, 129);
+    <string notr="true">
 font: 300 11pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="text">
     <string>Writer</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="myBooksBTN">
    <property name="geometry">
     <rect>
      <x>70</x>
@@ -62,7 +61,6 @@ font: 300 11pt &quot;Segoe UI&quot;;</string>
    <property name="styleSheet">
     <string notr="true">font: 700 11pt &quot;Segoe UI&quot;;
 border-radius: 4px;
-background-color: #FFF;
 </string>
    </property>
    <property name="text">
@@ -79,7 +77,7 @@ background-color: #FFF;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: #FFF;</string>
+    <string notr="true">background-color: transparent;</string>
    </property>
    <property name="widgetResizable">
     <bool>true</bool>
@@ -93,6 +91,9 @@ background-color: #FFF;
       <height>639</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <widget class="QTextEdit" name="contentInput1">
      <property name="geometry">
       <rect>
@@ -103,7 +104,7 @@ background-color: #FFF;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: white;</string>
+      <string notr="true"/>
      </property>
     </widget>
     <widget class="QLabel" name="contentInput">
@@ -118,15 +119,20 @@ background-color: #FFF;
      <property name="text">
       <string>TextLabel</string>
      </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
     </widget>
+    <zorder>contentInput</zorder>
+    <zorder>contentInput1</zorder>
    </widget>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>481</x>
      <y>20</y>
-     <width>172</width>
+     <width>231</width>
      <height>37</height>
     </rect>
    </property>
