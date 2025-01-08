@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://cdn.discordapp.com/attachments/723998679400316949/1325488625638576148/giffcodeyonline-video-cutter.com1-ezgif.com-video-to-gif-converter.gif?ex=677bf8fa&is=677aa77a&hm=d1138fed740834b0c718fa89934c08f68963cf2299db069b6fa06b6e9f21c58f&">
+    <img src="https://cdn.discordapp.com/attachments/723998679400316949/1325488625638576148/giffcodeyonline-video-cutter.com1-ezgif.com-video-to-gif-converter.gif?ex=677fed7a&is=677e9bfa&hm=e6bc42c970d03fb11e487508830c9de5d2a03c104266807ee0a638641c40579e&">
 </p>
 
 <p align="center">
