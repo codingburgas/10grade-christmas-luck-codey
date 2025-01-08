@@ -371,8 +371,8 @@ background-color: transparent;</string>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>0</y>
+      <x>70</x>
+      <y>10</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -388,8 +388,8 @@ font: 700 18pt &quot;Segoe UI&quot;;</string>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>40</y>
+      <x>70</x>
+      <y>50</y>
       <width>191</width>
       <height>20</height>
      </rect>
@@ -491,27 +491,6 @@ color: black;</string>
      <string>0 BGN</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="sortButton">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>20</y>
-      <width>61</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: #F5F5F5;
-border-radius: 12px;
-color: black;</string>
-    </property>
-    <property name="text">
-     <string>Sort</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
@@ -548,7 +527,7 @@ color: black;</string>
     <string/>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: #ff0000;</string>
+    <string notr="true">background-color: #ffffff;</string>
    </property>
    <property name="editTriggers">
     <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
@@ -557,7 +536,7 @@ color: black;</string>
     <bool>false</bool>
    </attribute>
    <attribute name="horizontalHeaderDefaultSectionSize">
-    <number>220</number>
+    <number>180</number>
    </attribute>
    <column>
     <property name="text">

@@ -25,13 +25,13 @@ void authWindow::on_pushButton_clicked()
     QString password = ui->lineEdit_2->text();
     QString role = ui->comboBox->currentText();
 
-#ifdef __APPLE__
-    QFile file("../../../../../dataAccessLayer/users.txt");
-#elif _WIN64
-    QFile file("../../dataAccessLayer/users.txt");
-#else
-#error "Unsupported platform"
-#endif
+    #ifdef __APPLE__
+        QFile file("../../../../../dataAccessLayer/users.txt");
+    #elif _WIN64
+        QFile file("../../dataAccessLayer/users.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(&file);

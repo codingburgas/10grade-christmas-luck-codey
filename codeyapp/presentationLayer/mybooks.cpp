@@ -26,8 +26,8 @@ myBooks::myBooks(const QString &username, const QString &role, QWidget *parent)
     ui->label_7->setText(username);
     ui->label_8->setText(role);
 
-    ui->tableWidget->setColumnCount(4);
-    ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Action"});
+    ui->tableWidget->setColumnCount(5);
+    ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Time Left", "Actions"});
 
     loadRentedBooks(username);
     loadUserFunds(username);
@@ -172,8 +172,48 @@ void myBooks::returnBook(const QString &title, const QString &author, const QStr
     }
 }
 
-void myBooks::loadRentedBooks(const QString &username)
-{
+void myBooks::sanctionUser(const QString &username, int fineAmount) {
+    #ifdef __APPLE__
+        QFile userFile("../../../../../dataAccessLayer/users.txt");
+    #elif _WIN64
+        QFile userFile("../../dataAccessLayer/users.txt");
+    #else
+    #error "Unsupported platform"
+    #endif
+
+    if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "Could not open users.txt for updating.");
+        return;
+    }
+
+    QTextStream userStream(&userFile);
+    QString updatedUserContent;
+
+    while (!userStream.atEnd()) {
+        QString line = userStream.readLine();
+        QStringList details = line.split(",");
+
+        if (details.size() >= 4 && details[0] == username) {
+            double userFunds = details[3].toDouble();
+            if (userFunds >= fineAmount) {
+                userFunds -= fineAmount;
+                QMessageBox::warning(this, "Overdue Fine", QString("You have been fined %1 BGN for overdue return.").arg(fineAmount));
+            } else {
+                QMessageBox::warning(this, "Insufficient Funds", "You do not have enough funds to pay the overdue fine.");
+            }
+            details[3] = QString::number(userFunds, 'f', 2);
+        }
+
+        updatedUserContent += details.join(",") + "\n";
+    }
+
+    userFile.resize(0);
+    QTextStream userOut(&userFile);
+    userOut << updatedUserContent;
+    userFile.close();
+}
+
+void myBooks::loadRentedBooks(const QString &username) {
     #ifdef __APPLE__
         QFile file("../../../../../dataAccessLayer/books.txt");
     #elif _WIN64
@@ -181,17 +221,20 @@ void myBooks::loadRentedBooks(const QString &username)
     #else
     #error "Unsupported platform"
     #endif
+
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open books.txt for reading.");
         return;
     }
 
     QTextStream in(&file);
+    QDate currentDate = QDate::currentDate();
+
     while (!in.atEnd()) {
         QString line = in.readLine();
         QStringList details = line.split(",");
 
-        if (details.size() >= 5 && details[3] == username) {
+        if (details.size() >= 8 && details[3] == username) {
             int currentRow = ui->tableWidget->rowCount();
             ui->tableWidget->insertRow(currentRow);
 
@@ -199,25 +242,42 @@ void myBooks::loadRentedBooks(const QString &username)
             ui->tableWidget->setItem(currentRow, 1, new QTableWidgetItem(details[1]));
             ui->tableWidget->setItem(currentRow, 2, new QTableWidgetItem(details[2]));
 
-            QPushButton *readButton = new QPushButton("Read", this);
-            connect(readButton, &QPushButton::clicked, [this, details]() {
-                class readBook readBookWindow(details[0], details[1], ui->label_7->text(), ui->label_8->text(), details[4], this);
-                readBookWindow.exec();
-            });
+            QDate rentDate = QDate::fromString(details[7], "yyyy-MM-dd");
+            int daysElapsed = rentDate.daysTo(currentDate);
+            int daysRented = details[5].toInt();
 
-            QPushButton *returnButton = new QPushButton("Return", this);
-            connect(returnButton, &QPushButton::clicked, [this, details, currentRow]() {
-                returnBook(details[0], details[1], details[2], currentRow);
-            });
+            QString statusText;
+            if (daysElapsed > daysRented) {
+                sanctionUser(username, 25);
+                statusText = "Overdue (Fined)";
+            } else {
+                int daysLeft = daysRented - daysElapsed;
+                statusText = QString("%1 days left").arg(daysLeft);
+            }
+
+            ui->tableWidget->setItem(currentRow, 3, new QTableWidgetItem(statusText));
 
             QWidget *buttonWidget = new QWidget(this);
             QHBoxLayout *layout = new QHBoxLayout(buttonWidget);
+
+            QPushButton *readButton = new QPushButton("Read", this);
+            QPushButton *returnButton = new QPushButton("Return", this);
+
             layout->addWidget(readButton);
             layout->addWidget(returnButton);
             layout->setContentsMargins(0, 0, 0, 0);
             buttonWidget->setLayout(layout);
 
-            ui->tableWidget->setCellWidget(currentRow, 3, buttonWidget);
+            connect(readButton, &QPushButton::clicked, [this, details]() {
+                class readBook readBookWindow(details[0], details[1], ui->label_7->text(), ui->label_8->text(), details[4], this);
+                readBookWindow.exec();
+            });
+
+            connect(returnButton, &QPushButton::clicked, [this, details, currentRow]() {
+                returnBook(details[0], details[1], details[2], currentRow);
+            });
+
+            ui->tableWidget->setCellWidget(currentRow, 4, buttonWidget);
         }
     }
 

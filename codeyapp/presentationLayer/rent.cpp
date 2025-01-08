@@ -32,8 +32,7 @@ int Rent::getDaysRented() const {
     return ui->lineEdit->text().toInt();
 }
 
-void Rent::onRentButtonClicked()
-{
+void Rent::onRentButtonClicked() {
     QString rentDaysStr = ui->lineEdit->text();
     if (rentDaysStr.isEmpty() || rentDaysStr.toInt() <= 0) {
         QMessageBox::warning(this, "Invalid Input", "Please enter a valid number of days.");
@@ -41,9 +40,9 @@ void Rent::onRentButtonClicked()
     }
 
     int rentDays = rentDaysStr.toInt();
-
     double bookPrice = 0.0;
     QString author;
+
     #ifdef __APPLE__
         QFile bookFile("../../../../../dataAccessLayer/books.txt");
     #elif _WIN64
@@ -51,25 +50,39 @@ void Rent::onRentButtonClicked()
     #else
     #error "Unsupported platform"
     #endif
-    if (!bookFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QMessageBox::critical(this, "Error", "Could not open books file for reading.");
+
+    if (!bookFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "Could not open books file for updating.");
         return;
     }
 
     QTextStream bookStream(&bookFile);
+    QString updatedBookContent;
     bool bookFound = false;
 
     while (!bookStream.atEnd()) {
         QString line = bookStream.readLine();
         QStringList details = line.split(",");
 
-        if (details.size() >= 7 && details[0] == bookTitle && details[1] == bookAuthor && details[2] == bookGenre) {
-            bookPrice = details[6].toDouble();
-            author = details[1];
-            bookFound = true;
-            break;
+
+        if (details.size() == 7) {
+            if (details[0] == bookTitle && details[1] == bookAuthor && details[2] == bookGenre) {
+                bookPrice = details[6].toDouble();
+                author = details[1];
+                details[3] = username;
+                details[5] = QString::number(rentDays);
+                details.append(QDate::currentDate().toString("yyyy-MM-dd"));
+                bookFound = true;
+            }
+            updatedBookContent += details.join(",") + "\n";
+        } else {
+            updatedBookContent += line + "\n";
         }
     }
+
+    bookFile.resize(0);
+    QTextStream bookOut(&bookFile);
+    bookOut << updatedBookContent;
     bookFile.close();
 
     if (!bookFound) {
@@ -84,6 +97,7 @@ void Rent::onRentButtonClicked()
     #else
     #error "Unsupported platform"
     #endif
+
     if (!userFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open users file for updating.");
         return;
@@ -144,31 +158,6 @@ void Rent::onRentButtonClicked()
         userOut << updatedUserContent;
         userFile.close();
 
-        if (!bookFile.open(QIODevice::ReadWrite | QIODevice::Text)) {
-            QMessageBox::critical(this, "Error", "Could not open books file for updating.");
-            return;
-        }
-
-        QTextStream bookStream(&bookFile);
-        QString updatedBookContent;
-
-        while (!bookStream.atEnd()) {
-            QString line = bookStream.readLine();
-            QStringList details = line.split(",");
-
-            if (details.size() >= 7 && details[0] == bookTitle && details[1] == bookAuthor && details[2] == bookGenre) {
-                details[3] = username;
-                details[5] = QString::number(rentDays);
-            }
-            updatedBookContent += details.join(",") + "\n";
-        }
-
-        bookFile.resize(0);
-        QTextStream bookOut(&bookFile);
-        bookOut << updatedBookContent;
-        bookFile.close();
-
-        QMessageBox::information(this, "Success", "Book rented successfully!");
         accept();
     }
 }

@@ -1,4 +1,5 @@
 ani,123,Writerania,100.00,Reader
-iva,123,Writer,697969
+iva,123,Writer,697979
 sop,123,Reader,0
 ivan,123,Reader,0
+ижа,123,Writer,0

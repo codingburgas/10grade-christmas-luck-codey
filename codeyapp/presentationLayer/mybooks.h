@@ -31,6 +31,7 @@ private:
     void returnBook(const QString &title, const QString &author, const QString &genre, int row);
     void fineUser(const QString &username, int fineAmount);
     void sortMyBooks(int titleColumnIndex);
+    void sanctionUser(const QString &username, int fineAmount);
 };
 
 #endif

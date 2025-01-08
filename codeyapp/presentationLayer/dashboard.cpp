@@ -275,7 +275,7 @@ void Dashboard::rentBook(const QString &title, const QString &author, const QStr
             });
         }
 
-        QMessageBox::information(this, "Success", QString("You have rented the book for %1 days!").arg(daysRented));
+        QMessageBox::information(this, "Success", QString("You have rented the book for %1 days").arg(daysRented));
     }
 }
 

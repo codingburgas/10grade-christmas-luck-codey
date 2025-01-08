@@ -355,7 +355,7 @@ color: black;</string>
     <string/>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: #ff0000;</string>
+    <string notr="true">background-color: #ffffff;</string>
    </property>
    <property name="editTriggers">
     <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
@@ -364,7 +364,7 @@ color: black;</string>
     <bool>false</bool>
    </attribute>
    <attribute name="horizontalHeaderDefaultSectionSize">
-    <number>220</number>
+    <number>180</number>
    </attribute>
    <column>
     <property name="text">

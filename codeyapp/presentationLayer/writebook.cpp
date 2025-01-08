@@ -65,7 +65,7 @@ void writeBook::on_writeButton_clicked()
         file.close();
 
         emit bookAdded(title, currentAuthor, genre, status);
-        QMessageBox::information(this, "Success", "Book added successfully!");
+        QMessageBox::information(this, "Success", "Book added successfully");
 
         this->close();
     } else {
