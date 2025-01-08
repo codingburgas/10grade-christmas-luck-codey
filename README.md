@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/348b5d19-d816-4dd0-9639-08de4b6f8f01)<p align="center">
+<p align="center">
     <img src="https://cdn.discordapp.com/attachments/723998679400316949/1325488625638576148/giffcodeyonline-video-cutter.com1-ezgif.com-video-to-gif-converter.gif?ex=677bf8fa&is=677aa77a&hm=d1138fed740834b0c718fa89934c08f68963cf2299db069b6fa06b6e9f21c58f&">
 </p>
 
