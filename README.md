@@ -1,4 +1,4 @@
-<p align="center">
+![image](https://github.com/user-attachments/assets/348b5d19-d816-4dd0-9639-08de4b6f8f01)<p align="center">
     <img src="https://cdn.discordapp.com/attachments/723998679400316949/1325488625638576148/giffcodeyonline-video-cutter.com1-ezgif.com-video-to-gif-converter.gif?ex=677bf8fa&is=677aa77a&hm=d1138fed740834b0c718fa89934c08f68963cf2299db069b6fa06b6e9f21c58f&">
 </p>
 
@@ -77,9 +77,10 @@
 # 📁 Documents
 ### Code & Team Documentation
   - [Documentation]()
+  - [Doxygen Documentation](https://idraykova22.github.io/Codey-Doxygen-Documentation/)
 
 ### Presenting
-  - [Presentation]()
+  - [Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/idraykova22_codingburgas_bg/Ea7WN0UCp_1Dm_kohOp62RUBa8JpXqhMxUrB73ExEQMUtA?e=NoWAxr)
 
 ### Design
   - [Application Design](https://www.figma.com/design/7rMQOtuEh34TFRIb20XDvs/Codey?node-id=0-1)
