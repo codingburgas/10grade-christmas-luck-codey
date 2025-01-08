@@ -2,6 +2,7 @@
 #define AUTHWINDOW_H
 
 #include <QDialog>
+#include "dataAccessLayer/database.h"
 
 namespace Ui {
 class authWindow;
@@ -15,8 +16,12 @@ public:
     explicit authWindow(QWidget *parent = nullptr);
     ~authWindow();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::authWindow *ui;
+    Database *db;
 };
 
-#endif // AUTHWINDOW_H
+#endif

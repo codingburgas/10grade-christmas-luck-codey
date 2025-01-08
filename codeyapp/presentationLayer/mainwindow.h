@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-//#include "authwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,6 +22,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    //authWindow *authWindow;
+
 };
-#endif // MAINWINDOW_H
+#endif

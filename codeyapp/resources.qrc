@@ -9,5 +9,9 @@
         <file>assets/images/logo.png</file>
         <file>assets/images/writeIcon.png</file>
         <file>assets/images/writeImage.png</file>
+        <file>dataAccessLayer/users.txt</file>
+        <file>dataAccessLayer/books.txt</file>
+        <file>assets/images/depositIcon.png</file>
+        <file>assets/images/withdrawIcon.png</file>
     </qresource>
 </RCC>

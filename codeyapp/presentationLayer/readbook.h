@@ -12,11 +12,14 @@ class readBook : public QDialog
     Q_OBJECT
 
 public:
-    explicit readBook(QWidget *parent = nullptr);
+    explicit readBook(const QString &title, const QString &author, const QString &username, const QString &role, const QString &content, QWidget *parent = nullptr);
     ~readBook();
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::readBook *ui;
 };
 
-#endif // READBOOK_H
+#endif
