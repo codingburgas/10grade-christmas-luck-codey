@@ -15,9 +15,11 @@
 #include "QTableWidget"
 
 Dashboard::Dashboard(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::Dashboard)
-{
+    : Dashboard("", "", parent) {
+}
+
+Dashboard::Dashboard(const QString &username, const QString &role, QWidget *parent)
+    : QDialog(parent), ui(new Ui::Dashboard) {
     ui->setupUi(this);
 
     QPixmap logo(":/assets/images/logo.png");
@@ -26,6 +28,7 @@ Dashboard::Dashboard(QWidget *parent)
     QPixmap writeIcon(":/assets/images/writeIcon.png");
     QPixmap depositIcon(":/assets/images/depositIcon.png");
     QPixmap withdrawIcon(":/assets/images/withdrawIcon.png");
+
     ui->label_logo->setPixmap(logo);
     ui->label_libraryIcon->setPixmap(libraryIcon);
     ui->label_books->setPixmap(booksIcon);
@@ -34,42 +37,26 @@ Dashboard::Dashboard(QWidget *parent)
     ui->tableWidget->setColumnCount(4);
     ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Status"});
 
+    if (!username.isEmpty() && !role.isEmpty()) {
+        ui->label_7->setText(username);
+        ui->label_8->setText(role);
+
+        if (role.toLower() == "reader") {
+            ui->pushButton_2->hide();
+            ui->pushButton->hide();
+            ui->label_write->hide();
+            ui->label_5->hide();
+        }
+
+        loadUserFunds();
+    } else {
+        ui->label_7->hide();
+        ui->label_8->hide();
+    }
 
     connect(ui->searchButton, &QPushButton::clicked, this, &Dashboard::on_searchButton_clicked);
 
     loadBooks();
-}
-
-Dashboard::Dashboard(const QString &username, const QString &role, QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::Dashboard)
-{
-    ui->setupUi(this);
-
-    QPixmap logo(":/assets/images/logo.png");
-    QPixmap libraryIcon(":/assets/images/libraryIcon.png");
-    QPixmap booksIcon(":/assets/images/booksIcon.png");
-    QPixmap writeIcon(":/assets/images/writeIcon.png");
-    ui->label_logo->setPixmap(logo);
-    ui->label_libraryIcon->setPixmap(libraryIcon);
-    ui->label_books->setPixmap(booksIcon);
-    ui->label_write->setPixmap(writeIcon);
-
-    ui->label_7->setText(username);
-    ui->label_8->setText(role);
-
-    if (role.toLower() == "reader") {
-        ui->pushButton_2->hide();
-        ui->pushButton->hide();
-        ui->label_write->hide();
-        ui->label_5->hide();
-    }
-
-    ui->tableWidget->setColumnCount(4);
-    ui->tableWidget->setHorizontalHeaderLabels({"Title", "Author", "Genre", "Status"});
-
-    loadBooks();
-    loadUserFunds();
 }
 
 Dashboard::~Dashboard()

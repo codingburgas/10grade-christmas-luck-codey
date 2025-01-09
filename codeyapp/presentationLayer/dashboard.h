@@ -32,7 +32,7 @@ private slots:
     void on_pushButton_5_clicked();
     void on_pushButton_6_clicked();
 
-    void on_modes_clicked(); // Slot for toggling light/dark mode
+    void on_modes_clicked();
 
 private:
     Ui::Dashboard *ui;
@@ -44,7 +44,7 @@ private:
     void updateBookDetails(const QString &title, const QString &author, const QString &genre, const QString &renter, int daysLeft);
     void recursiveSearch(int row, const QString &searchText);
 
-    bool isDarkTheme = false; // Member variable to track the current theme (default is light theme)
+    bool isDarkTheme = false;
 };
 
 #endif
